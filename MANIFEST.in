@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include flashdesk *.css
+recursive-include flashdesk *.csv
+recursive-include flashdesk *.html
+recursive-include flashdesk *.ico
+recursive-include flashdesk *.js
+recursive-include flashdesk *.json
+recursive-include flashdesk *.md
+recursive-include flashdesk *.png
+recursive-include flashdesk *.py
+recursive-include flashdesk *.svg
+recursive-include flashdesk *.txt
+recursive-exclude flashdesk *.pyc
