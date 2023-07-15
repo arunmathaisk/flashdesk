@@ -4,4 +4,4 @@
 *.swp
 tags
 node_modules
-flashdesk-frontend/node_modules
+frontend/node_modules
