@@ -20,6 +20,7 @@
           { id: 1, title: '', path: '/' },
           { id: 2, title: 'About', path: '/about' },
           { id: 3, title: 'Contact', path: '/contact' },
+          { id: 3, title: 'Say hello', path: '/hello' },
         ],
       };
     },
