@@ -8,8 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^10.3.0",
     "feather-icons": "^4.28.0",
     "frappe-ui": "^0.0.105",
+    "pinia": "^2.1.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },
