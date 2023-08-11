@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2023-08-11 19:09:04.025549",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "image_name",
+  "image_description",
+  "image_file",
+  "image_id",
+  "tags",
+  "created_by",
+  "created_on",
+  "modified_on",
+  "is_active",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "image_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Image Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image_description",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Image Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image_file",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Image File",
+   "options": "File",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image_id",
+   "fieldtype": "Data",
+   "label": "Image ID"
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "Data",
+   "label": "Tags"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User"
+  },
+  {
+   "fieldname": "created_on",
+   "fieldtype": "Datetime",
+   "label": "Created On"
+  },
+  {
+   "fieldname": "modified_on",
+   "fieldtype": "Datetime",
+   "label": "Modified On"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPublished\nDeprecated"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-08-11 19:18:22.517454",
+ "modified_by": "Administrator",
+ "module": "FlashDesk",
+ "name": "Pod Image",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
