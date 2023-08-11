@@ -21,6 +21,11 @@
                 <strong>Created On:</strong> {{ image.created_on }}
               </p>
             </div>
+            <div class="border-b pb-2 mt-2">
+              <p class="text-gray-700">
+                <strong>Created By:</strong> {{ image.created_by }}
+              </p>
+            </div>
             <div class="mt-2">
               <p class="text-gray-700">
                 <strong>Description:</strong> {{ image.image_description }}
