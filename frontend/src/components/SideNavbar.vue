@@ -48,7 +48,7 @@ export default {
     return {
       menuItems: [
         { id: 1, title: 'Create Pod', path: '/about' },
-        { id: 2, title: 'Available Pods ', path: '/contact' },
+        { id: 2, title: 'Pod Images', path: '/PodImages' },
         { id: 2, title: 'Running Pods ', path: '/contact' },
       ],
     }

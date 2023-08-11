@@ -28,6 +28,12 @@ const routes = [
       next('/login')
     },
   },
+  {
+    path: '/PodImages',
+    name: 'Pod Images',
+    component: () => import('@/pages/PodImages.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 let router = createRouter({
