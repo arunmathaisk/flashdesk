@@ -18,7 +18,7 @@
             </div>
             <div class="border-b pb-2 mt-2">
               <p class="text-gray-700">
-                <strong>Created On:</strong> {{ image.created_on }}
+                <strong>Created On:</strong> {{new Date(image.created_on).toDateString()}}
               </p>
             </div>
             <div class="border-b pb-2 mt-2">
