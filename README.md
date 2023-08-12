@@ -1,5 +1,5 @@
 
-![FlashDesk Logo](assets/logo.png)
+<img src="assets/logo.png" alt="FlashDesk Logo" width="200"/>
 
 ## Features
 
