@@ -1,3 +1,6 @@
+
+![FlashDesk Logo](assets/logo.png)
+
 ## Features
 
 - On demand Cloud Workstations.
