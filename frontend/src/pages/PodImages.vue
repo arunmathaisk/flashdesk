@@ -1,7 +1,7 @@
 <template>
 <div class="h-screen flex">
     <SideNavbar />
-  <div id = "test" class="flex-grow p-8 bg-yellow-500">
+  <div id = "test" class="flex-grow p-8 bg-white-500">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Pod Images</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
