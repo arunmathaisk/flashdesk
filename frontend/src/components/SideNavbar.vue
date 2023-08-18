@@ -1,6 +1,5 @@
 <template>
-  <div class="flex h-screen bg-gray-100">
-    <nav class="w-1/5 bg-white shadow-lg rounded-r-lg overflow-y-auto">
+    <nav class="h-full w-1/5 bg-red flex-none shadow-lg rounded-r-lg overflow-y-auto">
       <div class="p-6">
         <h1 class="text-4xl font-semibold text-blue-600 mb-8">FlashDesk</h1>
         <ul class="space-y-4">
@@ -28,7 +27,6 @@
         </router-link>
       </footer>
     </nav>
-  </div>
 </template>
 
 <script>
