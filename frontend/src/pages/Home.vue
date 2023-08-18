@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <SideNavbar />
-  </div>
-  <h1>
-  </h1>
+<div class="h-screen">
+<SideNavbar />
+</div>
 </template>
 
 <script>
