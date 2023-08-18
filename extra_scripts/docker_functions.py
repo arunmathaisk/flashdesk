@@ -14,15 +14,11 @@ def check_if_docker_exists():
 # a lot of docs says name but i find name of the image a bit risky for
 # surround all of this code with try and catch block
 # for images name for conatiner id
-def start_container(image_id):
-    built_images = client.images.list(all=True)
-    for image in built_images:
-        if image_id == image.id.split(":")[1] or image_id == image.short_id.split(":")[1]:
-            container = client.containers.run(image.attrs["RepoTags"][0],detach=True,ports={"5901": "5901", "6901": "6901"})
+def start_container(image_id):   
+            container = client.containers.run(image=image_id,detach=True,ports={"5901": "5901", "6901": "6901"})
             print(container.short_id)
             return container.short_id
-        else:
-            print("error")
 
+    
 def delete_container(container_id):
     client.containers.get(container_id).kill()
