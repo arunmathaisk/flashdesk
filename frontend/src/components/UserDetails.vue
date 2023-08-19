@@ -1,31 +1,45 @@
-<template> 
-    <div class="border-2 border-sky-400 bg-white w-screen shadow-lg p-6 m-6 rounded-lg md:max-w-md">
-      <h1 class="text-2xl font-semibold mb-4 text-center">
-        User Details
-      </h1>
-      <div v-if="loading" class="text-gray-600 mb-4 text-center">
-        Loading...
-      </div>
-      <div v-else>
-        <div class="mb-4">
-          <p class="text-gray-600">
-            <strong>Full Name:</strong> {{ userDetails.full_name }}
-          </p>
-          <p class="text-gray-600">
-            <strong>Email:</strong> {{ userDetails.email }}
-          </p>
-          <p class="text-gray-600">
-            <strong>Username:</strong> {{ userDetails.username }}
-          </p>
+<template>
+  <div class="border-2 border-sky-400 bg-white max-width-max shadow-lg p-6 m-6">
+    <h1 class="text-2xl text-blue-600 font-semibold mb-4 text-center">
+      Hi ! {{ userDetails.full_name }} 👋
+    </h1>
+    <hr class="border-t-2 border-sky-400 my-6" />
+    <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
+    <div v-else>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="text-gray-600">
+          <strong>Full Name:</strong> {{ userDetails.full_name }}
         </div>
-        <!-- <div class="mb-4">
+        <div class="text-gray-600">
+          <strong>Email:</strong> {{ userDetails.email }}
+        </div>
+        <div class="text-gray-600">
+          <strong>Username:</strong> {{ userDetails.username }}
+        </div>
+      </div>
+      <!-- <div class="mb-4">
           <p class="text-gray-600"><strong>Roles:</strong></p>
           <ul class="list-disc list-inside">
             <li v-for="role in userDetails.roles" :key="role">{{ role }}</li>
           </ul>
         </div> -->
-      </div>
     </div>
+  </div>
+
+  <div
+    class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6"
+  >
+    <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
+    <div v-else>
+      <h3 class="text-2xl text-green-600 font-semibold mb-4 text-center">
+        Last Login 🗒️
+        <hr class="border-t-2 border-green-400 my-6" />
+        <span class="text-gray-600 text-xl">
+          {{ new Date(last_login).toLocaleString() }}</span
+        >
+      </h3>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +56,7 @@ export default {
   data() {
     return {
       userDetails: {},
+      last_login: null,
     }
   },
   async created() {
@@ -54,7 +69,18 @@ export default {
       }
       const data = await response.json()
       this.userDetails = data.message
-      console.log(this.userDetails)
+    } catch (error) {
+      console.error('Error fetching user details:', error)
+    }
+    try {
+      const response = await fetch(
+        '/api/method/flashdesk.api.users.user.get_last_login'
+      )
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      this.last_login = data.message
     } catch (error) {
       console.error('Error fetching user details:', error)
     }
