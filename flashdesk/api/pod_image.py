@@ -1,13 +1,8 @@
 import frappe
-import os
-from pathlib import Path
 from werkzeug.wrappers import Response
 from werkzeug.wsgi import wrap_file
 from werkzeug.utils import secure_filename
-import uuid
-import hashlib
-import json
-
+from flashdesk.docker_utils.docker_client import *
 
 @frappe.whitelist()
 def get_all_published_pod_images():
@@ -23,7 +18,13 @@ def get_all_published_pod_images():
         "is_active",
         "status",
     ]
-
     filters = {"status": "Published"}
     data = frappe.get_all("Pod Image", fields=fields, filters=filters)
     return data
+
+
+@frappe.whitelist()
+def get_all_available_pod_images():
+    return get_all_docker_images()
+
+
