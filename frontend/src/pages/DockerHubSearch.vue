@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen flex">
+  <div class="h-screen flex overflow-hidden">
     <SideNavbar />
-    <div class="flex-grow p-8 bg-violet-200">
+    <div class="flex-grow p-8 bg-violet-200 overflow-auto">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">
         Search Docker Hub
       </h1>
