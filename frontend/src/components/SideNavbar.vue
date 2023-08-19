@@ -52,6 +52,7 @@ export default {
         { id: 3, title: 'Active Pod Images', path: '/ActivePodImages' },
         { id: 4, title: 'Create Pod', path: '/about' },
         { id: 5, title: 'Running Pods ', path: '/contact' },
+        { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
       ],
     }
   },

@@ -40,6 +40,12 @@ const routes = [
     component: () => import('@/pages/ActivePodImages.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/DockerHubSearch',
+    name: 'DockerHubSearch',
+    component: () => import('@/pages/DockerHubSearch.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 let router = createRouter({
