@@ -34,13 +34,14 @@ def get_all_filesystem_docker_images():
         image_list = []
         for image in images:
             image_info = {
-                "Image ID": image.id,
-                "Labels": image.labels,
-                "Tags": image.tags,
-                "Created": image.attrs["Created"],
-                "Size": image.attrs["Size"],
-                "Architecture": image.attrs["Architecture"],
-                "OS":image.attrs["Os"]
+                "image_id": image.id,
+                "short_id": image.short_id,
+                "labels": image.labels,
+                "tags": image.tags,
+                "created": image.attrs["Created"],
+                "size": image.attrs["Size"],
+                "architecture": image.attrs["Architecture"],
+                "os":image.attrs["Os"]
             }
             image_list.append(image_info)
         return image_list
