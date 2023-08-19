@@ -34,6 +34,12 @@ const routes = [
     component: () => import('@/pages/PodImages.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/ActivePodImages',
+    name: 'Active Pod Images',
+    component: () => import('@/pages/ActivePodImages.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 let router = createRouter({

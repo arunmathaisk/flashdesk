@@ -11,7 +11,7 @@
       subject to strict consequences.
     </p>
     <br />
-    <p class="text-right text-xl">- Devs @FlashDesk</p>
+    <p class="text-right text-xl">- @FlashDesk</p>
   </div>
 </template>
 <script>

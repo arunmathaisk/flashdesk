@@ -45,8 +45,9 @@
 </template>
 
 <script>
-import SideNavbar from '../components/SideNavbar.vue'
+import SideNavbar from '@/components/SideNavbar.vue'
 export default {
+  name: 'PodImages',
   data() {
     return {
       podImages: [],
