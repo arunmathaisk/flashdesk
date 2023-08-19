@@ -32,7 +32,7 @@
     <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
     <div v-else>
       <h3 class="text-2xl text-green-600 font-semibold mb-4 text-center">
-        Last Login 🗒️
+        Last Login 📗
         <hr class="border-t-2 border-green-400 my-6" />
         <span class="text-gray-600 text-xl">
           {{ new Date(last_login).toLocaleString() }}</span

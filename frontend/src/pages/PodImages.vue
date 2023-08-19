@@ -3,26 +3,30 @@
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-sky-200">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Pod Images</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <hr class="border-t-2 border-blue-400 my-6" />
+      <div class="grid grid-cols-1">
         <div
           v-for="(image, index) in podImages"
           :key="index"
-          class="bg-white rounded-lg shadow-md p-6 border border-gray-300"
+          class="border-2 border-blue-400 bg-white shadow-lg p-6 m-6"
         >
-          <h3 class="text-xl text-gray-800">{{ image.image_name }}</h3>
+          <h3 class="text-xl font-bold text-gray-800">
+            {{ image.image_name }}
+          </h3>
+          <hr class="border-t-2 border-blue-400 my-6" />
           <div class="mt-4">
-            <div class="border-b pb-2">
+            <div class="border-b pb-2  border-green-400">
               <p class="text-gray-700">
                 <strong>Image ID:</strong> {{ image.image_id }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2">
+            <div class="border-b pb-2 mt-2 border-green-400 ">
               <p class="text-gray-700">
                 <strong>Created On:</strong>
                 {{ new Date(image.created_on).toDateString() }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2">
+            <div class="border-b pb-2 mt-2 border-green-400">
               <p class="text-gray-700">
                 <strong>Created By:</strong> {{ image.created_by }}
               </p>
