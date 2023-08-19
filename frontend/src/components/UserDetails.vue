@@ -26,7 +26,7 @@
         </div> -->
     </div>
   </div>
-  <div class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6 basis-1/2">
+  <div class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6 basis-1/4">
     <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
     <div v-else>
       <h3 class="text-2xl text-green-600 font-semibold mb-4 text-center">

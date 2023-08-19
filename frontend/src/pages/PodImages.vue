@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen flex">
+  <div class="h-screen flex overflow-hidden">
     <SideNavbar />
-    <div id="test" class="flex-grow p-8 bg-sky-200">
+    <div id="test" class="flex-grow p-8 bg-emrald-300 overflow-auto">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Pod Images</h1>
       <hr class="border-t-2 border-blue-400 my-6" />
       <div class="grid grid-cols-1">
@@ -15,18 +15,18 @@
           </h3>
           <hr class="border-t-2 border-blue-400 my-6" />
           <div class="mt-4">
-            <div class="border-b pb-2  border-green-400">
+            <div class="pb-2 mt-2">
               <p class="text-gray-700">
                 <strong>Image ID:</strong> {{ image.image_id }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2 border-green-400 ">
+            <div class="pb-2 mt-2">
               <p class="text-gray-700">
                 <strong>Created On:</strong>
                 {{ new Date(image.created_on).toDateString() }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2 border-green-400">
+            <div class="pb-2 mt-2">
               <p class="text-gray-700">
                 <strong>Created By:</strong> {{ image.created_by }}
               </p>
