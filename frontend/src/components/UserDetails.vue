@@ -1,22 +1,23 @@
 <template>
-  <div class="border-2 border-sky-400 bg-white max-width-max shadow-lg p-6 m-6">
+      <div class="flex flex-row">
+    <div class="border-2 border-sky-400 bg-white max-w-md shadow-lg p-6 m-6 basis-1/2">
     <h1 class="text-2xl text-blue-600 font-semibold mb-4 text-center">
       Hi ! {{ userDetails.full_name }} 👋
     </h1>
     <hr class="border-t-2 border-sky-400 my-6" />
     <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
     <div v-else>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="text-gray-600">
-          <strong>Full Name:</strong> {{ userDetails.full_name }}
-        </div>
-        <div class="text-gray-600">
-          <strong>Email:</strong> {{ userDetails.email }}
-        </div>
-        <div class="text-gray-600">
-          <strong>Username:</strong> {{ userDetails.username }}
-        </div>
-      </div>
+      <div class="mb-4">
+          <p class="text-gray-600">
+            <strong>Full Name:</strong> {{ userDetails.full_name }}
+          </p>
+          <p class="text-gray-600">
+            <strong>Email:</strong> {{ userDetails.email }}
+          </p>
+          <p class="text-gray-600">
+            <strong>Username:</strong> {{ userDetails.username }}
+          </p>
+    </div>
       <!-- <div class="mb-4">
           <p class="text-gray-600"><strong>Roles:</strong></p>
           <ul class="list-disc list-inside">
@@ -25,10 +26,7 @@
         </div> -->
     </div>
   </div>
-
-  <div
-    class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6"
-  >
+  <div class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6 basis-1/2">
     <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
     <div v-else>
       <h3 class="text-2xl text-green-600 font-semibold mb-4 text-center">
@@ -39,6 +37,7 @@
         >
       </h3>
     </div>
+  </div>
   </div>
 </template>
 
