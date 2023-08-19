@@ -26,3 +26,8 @@ def get_all_published_pod_images():
 @frappe.whitelist()
 def get_all_available_pod_images():
     return get_all_filesystem_docker_images()
+
+@frappe.whitelist()
+def docker_hub_search(search_query):
+    return docker_search(search_query)
+

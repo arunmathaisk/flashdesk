@@ -43,3 +43,12 @@ def get_all_filesystem_docker_images():
     except docker.errors.APIError as e:
         print("Error:", e)
         return []
+
+
+def docker_search(query):
+    try:
+        search_results = client.images.search(query)
+        return search_results
+    except docker.errors.DockerException as e:
+        print("Error:", e)
+        return []
