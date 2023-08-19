@@ -1,6 +1,7 @@
 import docker
 import json
 from datetime import datetime
+import humanize
 
 client = docker.from_env()
 
@@ -39,7 +40,7 @@ def get_all_filesystem_docker_images():
                 "labels": image.labels,
                 "tags": image.tags,
                 "created": image.attrs["Created"],
-                "size": image.attrs["Size"],
+                "size": humanize.naturalsize(image.attrs["Size"]),
                 "architecture": image.attrs["Architecture"],
                 "os":image.attrs["Os"]
             }

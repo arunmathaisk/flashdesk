@@ -36,8 +36,13 @@
                 <strong>Architecture:</strong> {{ image.architecture }}
               </p>
             </div>
+             <div class="border-b pb-2 mt-2 border-blue-400">
+              <p class="text-gray-700">
+                <strong>OS:</strong> {{  image.os }}
+              </p>
+            </div>
             <div class="mt-2">
-              <p class="text-gray-700"><strong>OS:</strong> {{ image.os }}</p>
+              <p class="text-gray-700"><strong>Size</strong> {{ image.size }}</p>
             </div>
             <!-- Add more fields here if needed -->
           </div>
