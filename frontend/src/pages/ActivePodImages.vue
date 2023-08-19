@@ -3,7 +3,7 @@
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-green-200">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Active Runnable Pod Images</h1>
-      <hr class="border-t-2 border-green-400 my-6" />
+      <hr class="border-t-2 border-blue-400 my-6" />
       <div class="grid grid-cols-1">
         <div
           v-for="(image, index) in activeImages"
