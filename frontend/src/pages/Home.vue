@@ -1,8 +1,10 @@
 <template>
 <div class="h-screen flex">
 <SideNavbar />
-<UserDisclaimer />
-<UserDetails />
+<div class="flex flex-col w-screen bg-sky-200">
+  <UserDisclaimer />
+  <UserDetails />
+</div>
 </div>
 
 </template>

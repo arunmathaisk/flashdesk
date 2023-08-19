@@ -1,8 +1,7 @@
-<template>
-  <div class="flex justify-center items-center min-h-screen bg-gray-100">
-    <div class="bg-white shadow-md p-6 rounded-lg w-full md:max-w-md">
+<template> 
+    <div class="border-2 border-sky-400 bg-white w-screen shadow-lg p-6 m-6 rounded-lg md:max-w-md">
       <h1 class="text-2xl font-semibold mb-4 text-center">
-        Welcome, {{ currentUser }}
+        User Details
       </h1>
       <div v-if="loading" class="text-gray-600 mb-4 text-center">
         Loading...
@@ -27,7 +26,6 @@
         </div> -->
       </div>
     </div>
-  </div>
 </template>
 
 <script>
