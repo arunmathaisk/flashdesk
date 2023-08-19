@@ -85,8 +85,8 @@ export default {
               )
             }
             userStore.$patch((state) => {
-              state.user.user_id = getCookies().user_id,
-              state.user.full_name = getCookies().full_name
+              ;(state.user.user_id = getCookies().user_id),
+                (state.user.full_name = getCookies().full_name)
             })
             authStore.login()
             this.$router.push('/')

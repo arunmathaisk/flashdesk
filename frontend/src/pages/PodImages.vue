@@ -1,7 +1,7 @@
 <template>
-<div class="h-screen flex">
+  <div class="h-screen flex">
     <SideNavbar />
-  <div id = "test" class="flex-grow p-8 bg-white-500">
+    <div id="test" class="flex-grow p-8 bg-sky-200">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Pod Images</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
@@ -18,7 +18,8 @@
             </div>
             <div class="border-b pb-2 mt-2">
               <p class="text-gray-700">
-                <strong>Created On:</strong> {{new Date(image.created_on).toDateString()}}
+                <strong>Created On:</strong>
+                {{ new Date(image.created_on).toDateString() }}
               </p>
             </div>
             <div class="border-b pb-2 mt-2">
@@ -36,7 +37,7 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
