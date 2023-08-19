@@ -26,7 +26,7 @@ def start_container_using_image_id(image_id):
 def kill_container_using_container_id(container_id):
     client.containers.get(container_id).kill()
 
-def get_all_docker_images():
+def get_all_filesystem_docker_images():
     try:
         images = client.images.list()
         image_list = []
