@@ -15,7 +15,7 @@
             style="display: grid; grid-template-columns: 1fr auto"
           >
           Image Tags : {{ image.tags }}
-          <button
+          <button @click="runPod(image.image_id)"
               class="bg-green-400 text-white p-2 pl-4 pr-4 hover:bg-green-600 focus:outline focus:ring focus:border-green-400"
             >
               Run
@@ -82,6 +82,49 @@ export default {
         this.activeImages = data.message
       } catch (error) {
         console.error('Error fetching images:', error)
+      }
+    },
+    async runPod(image_id) {
+      try {
+        const response = await fetch(
+          '/api/method/flashdesk.api.pods.running_pods.run_pod',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image_id: image_id }),
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: 'Sucess',
+            text: 'Pod Run Sucessfully',
+            showCancelButton: 'true'
+          });
+          
+          this.fetchActiveImages();
+        } else {
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'error',
+            title: 'Error',
+            text: 'Something Went Wrong :(',
+            showCancelButton: 'true'
+          });
+          console.error('Error terminating pod:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error terminating pod:', error);
       }
     },
   },

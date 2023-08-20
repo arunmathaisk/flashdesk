@@ -22,9 +22,7 @@ def start_container_using_image_id(image_id):
     container = client.containers.run(
         image=image_id, detach=True, ports={"5901": "5901", "6901": "6901"}
     )
-    print(container.short_id)
     return container.short_id
-
 
 def kill_container_using_container_id(container_id):
     client.containers.get(container_id).kill()
