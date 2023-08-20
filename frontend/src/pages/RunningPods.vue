@@ -7,20 +7,11 @@
       </h1>
       <hr class="border-t-2 border-teal-400 my-6" />
       <div class="grid grid-cols-1">
-        <div
-          v-for="(pod, index) in runningPods"
-          :key="index"
-          class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6"
-        >
-          <h3
-            class="text-xl font-bold text-gray-800"
-            style="display: grid; grid-template-columns: 1fr auto"
-          >
+        <div v-for="(pod, index) in runningPods" :key="index" class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6">
+          <h3 class="text-xl font-bold text-gray-800" style="display: grid; grid-template-columns: 1fr auto">
             Container Name : {{ pod.container_name }}
-            <button
-              @click="terminatePod(pod.container_id)"
-              class="bg-teal-500 text-white p-2 pl-4 pr-4 hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
-            >
+            <button @click="terminatePod(pod.container_id)"
+              class="bg-teal-500 text-white p-2 pl-4 pr-4 hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700">
               Terminate
             </button>
           </h3>
@@ -88,8 +79,28 @@ export default {
         );
         if (response.ok) {
           const data = await response.json();
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: 'Sucess',
+            text: 'Pod Terminated Sucessfully',
+            showCancelButton: 'true'
+          });
           this.fetchRunningPods();
         } else {
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'error',
+            title: 'Error',
+            text: 'Something Went Wrong :(',
+            showCancelButton: 'true'
+          });
           console.error('Error terminating pod:', response.statusText);
         }
       } catch (error) {
@@ -97,6 +108,6 @@ export default {
       }
     },
   },
-  components: { SideNavbar},
+  components: { SideNavbar },
 }
 </script>
