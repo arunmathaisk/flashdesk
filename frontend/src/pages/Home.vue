@@ -1,7 +1,7 @@
 <template>
-<div class="h-screen flex">
+<div class="h-screen flex overflow-hidden">
 <SideNavbar />
-<div class="flex flex-col w-screen bg-sky-200">
+<div class="flex flex-col w-screen bg-white-200 overflow-auto">
   <UserDisclaimer />
   <UserDetails />
 </div>

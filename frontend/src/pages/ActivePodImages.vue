@@ -1,9 +1,9 @@
 <template>
-  <div class="h-screen flex">
+  <div class="h-screen flex overflow-hidden">
     <SideNavbar />
-    <div id="test" class="flex-grow p-8 bg-green-200">
+    <div id="test" class="flex-grow p-8 bg-white-200 overflow-auto">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">Active Runnable Pod Images</h1>
-      <hr class="border-t-2 border-blue-400 my-6" />
+      <hr class="border-t-2 border-green-400 my-6" />
       <div class="grid grid-cols-1">
         <div
           v-for="(image, index) in activeImages"
@@ -15,28 +15,28 @@
           </h3>
           <hr class="border-t-2 border-green-400 my-6" />
           <div class="mt-4">
-            <div class="border-b pb-2 border-blue-400">
+            <div class="pb-2 border-green-400">
               <p class="text-gray-700">
                 <strong>ID:</strong> {{ image.image_id }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2 border-blue-400">
+            <div class="pb-2 mt-2 border-green-400">
               <p class="text-gray-700">
                 <strong>Created On:</strong>
                 {{ new Date(image.created).toDateString() }}
               </p>
             </div>
-            <div class="border-b pb-2 border-blue-400">
+            <div class="pb-2 border-green-400">
               <p class="text-gray-700">
                 <strong>Short ID:</strong> {{ image.short_id }}
               </p>
             </div>
-            <div class="border-b pb-2 mt-2 border-blue-400">
+            <div class=" pb-2 mt-2 border-green-400">
               <p class="text-gray-700">
                 <strong>Architecture:</strong> {{ image.architecture }}
               </p>
             </div>
-             <div class="border-b pb-2 mt-2 border-blue-400">
+             <div class="pb-2 mt-2 border-green-400">
               <p class="text-gray-700">
                 <strong>OS:</strong> {{  image.os }}
               </p>
