@@ -10,8 +10,16 @@
           :key="index"
           class="border-2 border-green-400 bg-white shadow-lg p-6 m-6"
         >
-          <h3 class="text-xl font-bold text-gray-800">
+        <h3
+            class="text-xl font-bold text-gray-800"
+            style="display: grid; grid-template-columns: 1fr auto"
+          >
           Image Tags : {{ image.tags }}
+          <button
+              class="bg-green-400 text-white p-2 pl-4 pr-4 hover:bg-green-600 focus:outline focus:ring focus:border-green-400"
+            >
+              Run
+            </button>
           </h3>
           <hr class="border-t-2 border-green-400 my-6" />
           <div class="mt-4">

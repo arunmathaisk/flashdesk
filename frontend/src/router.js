@@ -46,6 +46,12 @@ const routes = [
     component: () => import('@/pages/DockerHubSearch.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/RunningPods',
+    name: 'RunningPods',
+    component: () => import('@/pages/RunningPods.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 let router = createRouter({

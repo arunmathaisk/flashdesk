@@ -2,6 +2,7 @@ import docker
 import json
 from datetime import datetime
 import humanize
+# import frappe
 
 client = docker.from_env()
 
@@ -42,7 +43,7 @@ def get_all_filesystem_docker_images():
                 "created": image.attrs["Created"],
                 "size": humanize.naturalsize(image.attrs["Size"]),
                 "architecture": image.attrs["Architecture"],
-                "os":image.attrs["Os"]
+                "os": image.attrs["Os"],
             }
             image_list.append(image_info)
         return image_list
@@ -51,6 +52,25 @@ def get_all_filesystem_docker_images():
         return []
 
 
+def get_all_actively_running_docker_images():
+    try:
+        containers = client.containers.list()
+        running_containers = []
+        for container in containers:
+            running_container = {
+                "container_id": container.id,
+                "container_image_tags" :container.image.tags,
+                "container_name": container.name,
+                "container_labels": container.labels,
+                "container_shortid": container.short_id,
+                "container_status": container.status,
+            }
+            running_containers.append(running_container)
+        return running_containers
+    except docker.errors.APIError as e:
+        print("Error:", e)
+        return []
+
 def docker_search(query):
     try:
         search_results = client.images.search(query)
@@ -58,3 +78,11 @@ def docker_search(query):
     except docker.errors.DockerException as e:
         print("Error:", e)
         return []
+
+
+# @frappe.whitelist()
+# def pull_container_from_hub(container_id):
+#     resp = client.api.pull(container_id, stream=True, decode=True, all_tags=True)
+#     for line in resp:
+#         frappe.publish_realtime("event_name", data={"key": "value"})
+#     return "done"

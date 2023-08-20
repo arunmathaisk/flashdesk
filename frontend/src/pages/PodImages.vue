@@ -10,8 +10,16 @@
           :key="index"
           class="border-2 border-blue-400 bg-white shadow-lg p-6 m-6"
         >
-          <h3 class="text-xl font-bold text-gray-800">
+        <h3
+            class="text-xl font-bold text-gray-800"
+            style="display: grid; grid-template-columns: 1fr auto"
+          >
             {{ image.image_name }}
+            <button
+              class="bg-blue-400 text-white p-2 pl-4 pr-4 hover:bg-blue-600 focus:outline focus:ring focus:border-blue-400"
+            >
+              Extract
+            </button>
           </h3>
           <hr class="border-t-2 border-blue-400 my-6" />
           <div class="mt-4">

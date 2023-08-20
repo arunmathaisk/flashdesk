@@ -50,8 +50,8 @@ export default {
         { id: 1, title: 'Home', path: '/' },
         { id: 2, title: 'Pod Images', path: '/PodImages' },
         { id: 3, title: 'Active Pod Images', path: '/ActivePodImages' },
-        { id: 4, title: 'Create Pod', path: '/about' },
-        { id: 5, title: 'Running Pods ', path: '/contact' },
+        // { id: 4, title: 'Create Pod', path: '/about' },
+        { id: 5, title: 'Running Pods ', path: '/RunningPods' },
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
       ],
     }

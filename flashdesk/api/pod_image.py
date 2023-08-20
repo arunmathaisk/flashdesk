@@ -31,3 +31,9 @@ def get_all_available_pod_images():
 def docker_hub_search(search_query):
     return docker_search(search_query)
 
+# @frappe.whitelist()
+# def test(name):
+#     return test(name)
+
+
+
