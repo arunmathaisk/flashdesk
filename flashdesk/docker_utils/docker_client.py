@@ -50,6 +50,9 @@ def start_container_using_image_id(image_id):
     }
     return metadata
 
+
+
+
 def kill_container_using_container_id(container_id):
     client.containers.get(container_id).kill()
 
@@ -103,10 +106,13 @@ def docker_search(query):
         print("Error:", e)
         return []
 
-
-# @frappe.whitelist()
-# def pull_container_from_hub(container_id):
-#     resp = client.api.pull(container_id, stream=True, decode=True, all_tags=True)
-#     for line in resp:
-#         frappe.publish_realtime("event_name", data={"key": "value"})
-#     return "done"
+def remove_image_using_id(image_id):
+    try:
+        client.images.remove(image_id,force=True)
+        return "sucess"
+    except docker.errors.ImageNotFound:
+        print(f"Image {image_id} not found")
+        return "error"
+    except docker.errors.APIError as e:
+        print(f"An error occurred: {e}")
+        return "error"
