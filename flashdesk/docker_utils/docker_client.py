@@ -1,12 +1,32 @@
 import docker
+import socket
 import json
 from datetime import datetime
 import humanize
+
 # import frappe
 
 client = docker.from_env()
 
 DOCKER_EXISTS = False
+
+def find_available_ports(num_ports, starting_port=49152, ending_port=65535):
+    reserved_ports = [22, 80, 443, 3306]  #List of reserved ports
+    
+    available_ports = []
+    current_port = starting_port
+
+    while len(available_ports) < num_ports and current_port <= ending_port:
+        if current_port not in reserved_ports:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                try:
+                    s.bind(("127.0.0.1", current_port))
+                    available_ports.append(current_port)
+                except:
+                    pass
+        current_port += 1
+
+    return available_ports
 
 
 def check_if_docker_exists():
@@ -19,10 +39,16 @@ def check_if_docker_exists():
 
 
 def start_container_using_image_id(image_id):
+    available_ports = find_available_ports(2)
     container = client.containers.run(
-        image=image_id, detach=True, ports={"5901": "5901", "6901": "6901"}
+        image=image_id, detach=True, ports={"5901":available_ports[0], "6901":available_ports[1]}
     )
-    return container.short_id
+    metadata = {
+        "container_short_id" : container.short_id,
+        "available_ports" : available_ports,
+        "vnc_port" : available_ports[1],
+    }
+    return metadata
 
 def kill_container_using_container_id(container_id):
     client.containers.get(container_id).kill()

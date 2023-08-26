@@ -108,7 +108,7 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true'
           });
-          const newTab = window.open("http://localhost"+":6901", "_blank");
+          const newTab = window.open("http://localhost:"+data.message.vnc_port, "_blank");
           this.fetchActiveImages();
         } else {
           this.$swal({
