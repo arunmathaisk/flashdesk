@@ -101,9 +101,10 @@ export default {
                 console.log(currentchunk+1/Math.ceil(this.total_chunks))
                 // this.upload_progress = ((currentchunk/ Math.ceil(this.total_chunks)) * 100)
                 // console.log(this.upload_progress)
-                this.$emit("file_path",reply.message.filepath)
-                currentchunk++;
+
               }
+              this.$emit("file_path",reply.message.filepath)
+              currentchunk++;
             }
             }catch{
               this.toast("error","Server seems down","Please contact admin")
