@@ -1,61 +1,52 @@
-import frappe
 import os
+import frappe
 from werkzeug.wrappers import Request, Response
 from werkzeug.utils import secure_filename
 from pathlib import Path
-import json
 
-allowed_extension = ["tar"]
+ALLOWED_EXTENSIONS = {"tar", "zip"}
+
+def is_allowed_extension(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @frappe.whitelist()
 def file_upload():
-    if frappe.request.method == "POST":
-        print(frappe.form_dict)
-        data = frappe.request.files["file"]
-        current_chunk = int(frappe.form_dict["current_chunk"])
-        total_chunks = frappe.form_dict["total_chunks"]
-        file_name = frappe.form_dict["filename"]
-        save_path = os.path.join(frappe.get_site_path("private/files"), secure_filename(file_name))
-        
-        extension = file_name.split(".")[1]
-        if extension not in allowed_extension:
-            return "File Not Allowed"
-        if os.path.exists(save_path) and current_chunk == 0:
-        # 400 and 500s will tell dropzone that an error occurred and show an error
-            return "File Exists"
-        
-        try:
-            with open(save_path,"ab") as f:
-                f.seek(int(frappe.form_dict['offset']))
-                f.write(data.stream.read())
-        except OSError:
-            return "issue in Saving file"
+    # Get request data
+    data = frappe.request.files.get("file")
+    current_chunk = int(frappe.form_dict.get("current_chunk", 0))
+    total_chunks = int(frappe.form_dict.get("total_chunks", 1))
+    file_name = frappe.form_dict.get("filename", "")
 
-        if current_chunk + 1 == total_chunks:
-        # This was the last chunk, the file should be complete and the size we expect
-            if os.path.getsize(save_path) != int(request.form['dztotalfilesize']):
-                print(f"File {file_name} was completed, "
-                        f"but has a size mismatch."
-                        f"Was {os.path.getsize(save_path)} but we"
-                        f" expected {request.form['dztotalfilesize']} ")
-                return "Size Mismatch"
-            else:
-                print(f'File {file_name} has been uploaded successfully')
+    # Define the save path
+    save_path = os.path.join(frappe.get_site_path("private/files/tar_image_files/"), secure_filename(file_name))
+
+    # Check if the file extension is allowed
+    if not is_allowed_extension(file_name):
+        return "File Not Allowed"
+
+    # Check if the file already exists and it's the first chunk
+    if os.path.exists(save_path) and current_chunk == 0:
+        return "File Exists"
+
+    try:
+        # Open the file in binary append mode and write the data chunk
+        with open(save_path, "ab") as f:
+            f.seek(int(frappe.form_dict.get("offset", 0)))
+            f.write(data.stream.read())
+    except OSError:
+        return "Issue in Saving file"
+
+    if current_chunk + 1 == total_chunks:
+        # This was the last chunk, check the file size
+        expected_size = int(frappe.form_dict.get("dztotalfilesize", 0))
+        actual_size = os.path.getsize(save_path)
+        if actual_size != expected_size:
+            print(f"File {file_name} has a size mismatch: {actual_size} != {expected_size}")
+            return "Size Mismatch"
         else:
-            print(f'Chunk {current_chunk + 1} of {total_chunks} '
-                    f'for file {file_name} complete')
+            print(f"File {file_name} has been uploaded successfully")
+    else:
+        print(f"Chunk {current_chunk + 1} of {total_chunks} for file {file_name} complete")
 
-    reply_dict = {
-        "status":"Chunk Uploaded Successfully",
-        "filepath":save_path
-    }
+    reply_dict = {"status": "Chunk Uploaded Successfully", "filepath": save_path}
     return reply_dict
-        
-
-
-        # print("current chunk "+str(current_chunk)+" "+str(file_name))
-        # return "current chunk "+str(current_chunk)+" "+str(file_name)
-
-
-
-        
-    
