@@ -55,9 +55,9 @@ export default {
     return {
       menuItems: [
         { id: 1, title: 'Home', path: '/' },
-        { id: 2, title: 'Pod Images', path: '/PodImages' },
-        { id: 3, title: 'Active Pod Images', path: '/ActivePodImages' },
-        { id: 4, title: 'Create Pod Image', path: '/CreatePodImages' },
+        { id: 2, title: 'Create Pod Image', path: '/CreatePodImages' },
+        { id: 3, title: 'Pod Images', path: '/PodImages' },
+        { id: 4, title: 'Active Pod Images', path: '/ActivePodImages' },
         { id: 5, title: 'Running Pods ', path: '/RunningPods' },
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
       ],
