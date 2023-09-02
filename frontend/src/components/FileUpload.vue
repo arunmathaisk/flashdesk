@@ -80,8 +80,6 @@
 </template>
 
 <script>
-import { useThrottledRefHistory } from '@vueuse/core'
-
 export default {
   name: 'FileUpload',
   props: ['label', 'required'],

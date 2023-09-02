@@ -10,7 +10,7 @@ def is_allowed_extension(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @frappe.whitelist()
-def file_upload():
+def file_upload():  
     # Get request data
     data = frappe.request.files.get("file")
     current_chunk = int(frappe.form_dict.get("current_chunk", 0))
@@ -18,7 +18,7 @@ def file_upload():
     file_name = frappe.form_dict.get("filename", "")
 
     # Define the save path
-    save_path = os.path.join(frappe.get_site_path("private/files/tar_image_files/"), secure_filename(file_name))
+    save_path = os.path.join(frappe.get_site_path("private/files"), secure_filename(file_name))
 
     # Check if the file extension is allowed
     if not is_allowed_extension(file_name):

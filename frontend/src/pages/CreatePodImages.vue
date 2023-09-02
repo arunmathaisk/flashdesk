@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import SideNavbar from '../components/SideNavbar.vue'
-import FileUpload from '../components/FileUpload.vue'
-import Forms from '../components/Forms.vue'
+import SideNavbar from '@/components/SideNavbar.vue'
+import FileUpload from '@/components/FileUpload.vue'
+import Forms from '@/components/Forms.vue'
 export default {
   name: 'CreatePodImages',
   components: {

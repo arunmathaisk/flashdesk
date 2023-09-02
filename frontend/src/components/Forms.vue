@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import FileUpload from './FileUpload.vue';
+import FileUpload from '@/components/FileUpload.vue';
 export default{
   name:"Forms",
   props:['form_label','form_details','form_action'],
