@@ -55,7 +55,7 @@ export default {
           type: 'select',
           name: 'status',
           options: ['Draft', 'Published', 'Deprecated'],
-          value: '',
+          value: 'Draft',
           isRequired: null,
         },
       ],
