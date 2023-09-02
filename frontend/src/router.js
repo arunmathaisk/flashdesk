@@ -29,6 +29,12 @@ const routes = [
     },
   },
   {
+    path: '/CreatePodImages',
+    name: 'Create Pod Images',
+    component: () => import('@/pages/CreatePodImages.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/PodImages',
     name: 'Pod Images',
     component: () => import('@/pages/PodImages.vue'),

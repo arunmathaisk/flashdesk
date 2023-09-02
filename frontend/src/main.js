@@ -21,3 +21,4 @@ app.use(resourcesPlugin)
 app.use(VueSweetalert2)
 app.component('Button', Button)
 app.mount('#app')
+app.config.globalProperties.$test = "hahaha"

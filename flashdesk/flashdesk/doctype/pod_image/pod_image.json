@@ -35,10 +35,9 @@
   },
   {
    "fieldname": "image_file",
-   "fieldtype": "Attach",
+   "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Image File",
-   "options": "File",
    "reqd": 1
   },
   {
@@ -82,7 +81,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-08-11 19:18:22.517454",
+ "modified": "2023-09-01 13:10:30.393623",
  "modified_by": "Administrator",
  "module": "FlashDesk",
  "name": "Pod Image",
