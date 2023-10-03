@@ -14,7 +14,7 @@ def file_upload():
     # Get request data
     data = frappe.request.files.get("file")
     current_chunk = int(frappe.form_dict.get("current_chunk", 0))
-    total_chunks = int(frappe.form_dict.get("total_chunks", 1))
+    total_chunks = int(float(frappe.form_dict.get("total_chunks", 1)))
     file_name = frappe.form_dict.get("filename", "")
 
     # Define the save path
