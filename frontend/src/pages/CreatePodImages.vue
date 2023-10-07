@@ -29,6 +29,7 @@ export default {
           name: 'image_name',
           value: '',
           isRequired: true,
+          defaultRequired:null
         },
         {
           label: 'Image Description',
@@ -36,12 +37,14 @@ export default {
           name: 'image_description',
           value: '',
           isRequired: true,
+          defaultRequired:null
         },
         {
           type: 'FileUpload',
           name: 'image_file',
           value: '',
           isRequired: true,
+          defaultRequired:null
         },
         {
           label: 'Tags',

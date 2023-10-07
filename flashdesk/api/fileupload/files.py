@@ -3,6 +3,7 @@ import frappe
 from werkzeug.wrappers import Request, Response
 from werkzeug.utils import secure_filename
 from pathlib import Path
+import math
 
 ALLOWED_EXTENSIONS = {"tar", "zip"}
 
@@ -14,7 +15,7 @@ def file_upload():
     # Get request data
     data = frappe.request.files.get("file")
     current_chunk = int(frappe.form_dict.get("current_chunk", 0))
-    total_chunks = int(float(frappe.form_dict.get("total_chunks", 1)))
+    total_chunks = math.ceil(float(frappe.form_dict.get("total_chunks", 1)))
     file_name = frappe.form_dict.get("filename", "")
 
     # Define the save path
@@ -22,31 +23,50 @@ def file_upload():
 
     # Check if the file extension is allowed
     if not is_allowed_extension(file_name):
-        return "File Not Allowed"
+        reply_dict = {"type": "warning", "title":"File Not Allowed","body":"Check file type"}
+        return reply_dict
 
     # Check if the file already exists and it's the first chunk
     if os.path.exists(save_path) and current_chunk == 0:
-        return "File Exists"
+        reply_dict = {"type": "warning", "title":"File Exists","body":"We have it already"}
+        return reply_dict
 
     try:
         # Open the file in binary append mode and write the data chunk
         with open(save_path, "ab") as f:
+            print("Before seeking",f.tell())
             f.seek(int(frappe.form_dict.get("offset", 0)))
+            print("after seeking",f.tell())
             f.write(data.stream.read())
+            print("after writing",f.tell())
     except OSError:
-        return "Issue in Saving file"
+        reply_dict = {"type": "warning", "title":"Issue in Saving file","body":"Please reupload"}
+        return reply_dict
 
     if current_chunk + 1 == total_chunks:
         # This was the last chunk, check the file size
-        expected_size = int(frappe.form_dict.get("dztotalfilesize", 0))
+        expected_size = int(frappe.form_dict.get("filesize"))
         actual_size = os.path.getsize(save_path)
+        print("Compare diff",expected_size,actual_size)
         if actual_size != expected_size:
             print(f"File {file_name} has a size mismatch: {actual_size} != {expected_size}")
-            return "Size Mismatch"
+            reply_dict = {"type": "warning", "title":"Size Mismatch","body":"Please reupload"}
+            return reply_dict
         else:
-            print(f"File {file_name} has been uploaded successfully")
+           reply_dict = {"type": "success", "success":"File Uploaded","body":"Yay!","filepath": save_path}
+           return reply_dict
     else:
         print(f"Chunk {current_chunk + 1} of {total_chunks} for file {file_name} complete")
 
-    reply_dict = {"status": "Chunk Uploaded Successfully", "filepath": save_path}
+    reply_dict = {"status": "Chunk Uploaded Successfully"}
     return reply_dict
+
+
+@frappe.whitelist()
+def file_delete():
+    data = frappe.request.get_json()
+    print(data)
+    file_path = os.path.join(frappe.get_site_path("private/files"),data['name'])
+    if os.path.isfile(file_path):
+        os.unlink(file_path)
+        return "deleted"
