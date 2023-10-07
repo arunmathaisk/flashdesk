@@ -136,12 +136,10 @@ export default {
       this.$refs.file.click()
     },
     prevent(event) {
-      console.log('Prevented')
       event.preventDefault()
     },
     dropFile(event) {
       event.preventDefault()
-      console.log('File is dropped?')
       if (event.type == 'change') {
         this.uploaded_files = this.$refs.file.files[0]
       } else {

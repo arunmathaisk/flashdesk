@@ -81,17 +81,13 @@ export default {
       let detail_to_be_sent = new Object()
       for (let i = 0; i < this.form_details.length; i++) {
         if (this.form_details[i].type == 'FileUpload') {
-          console.log('hi')
           detail_to_be_sent[this.form_details[i].name] = this.file_path
-          console.log(detail_to_be_sent[this.form_details[i].name])
         } else {
-          console.log('i')
           detail_to_be_sent[this.form_details[i].name] =
             this.form_details[i].value
         }
       }
       let url = window.location.origin + this.form_action
-      console.log(detail_to_be_sent)
       let response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -113,7 +109,6 @@ export default {
       let filled_fields = 0
       for(let i =0;i<this.required_fields.length;i++){
         if(this.required_fields[i].type == "FileUpload"){
-            console.log(this.file_path)
             if(this.file_path == null){
               this.required_fields[i].defaultRequired = true;
             }else{

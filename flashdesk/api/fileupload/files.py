@@ -34,11 +34,8 @@ def file_upload():
     try:
         # Open the file in binary append mode and write the data chunk
         with open(save_path, "ab") as f:
-            print("Before seeking",f.tell())
             f.seek(int(frappe.form_dict.get("offset", 0)))
-            print("after seeking",f.tell())
             f.write(data.stream.read())
-            print("after writing",f.tell())
     except OSError:
         reply_dict = {"type": "warning", "title":"Issue in Saving file","body":"Please reupload"}
         return reply_dict
@@ -47,9 +44,7 @@ def file_upload():
         # This was the last chunk, check the file size
         expected_size = int(frappe.form_dict.get("filesize"))
         actual_size = os.path.getsize(save_path)
-        print("Compare diff",expected_size,actual_size)
         if actual_size != expected_size:
-            print(f"File {file_name} has a size mismatch: {actual_size} != {expected_size}")
             reply_dict = {"type": "warning", "title":"Size Mismatch","body":"Please reupload"}
             return reply_dict
         else:
@@ -65,7 +60,6 @@ def file_upload():
 @frappe.whitelist()
 def file_delete():
     data = frappe.request.get_json()
-    print(data)
     file_path = os.path.join(frappe.get_site_path("private/files"),data['name'])
     if os.path.isfile(file_path):
         os.unlink(file_path)
