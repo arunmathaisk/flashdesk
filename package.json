@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "scripts": {
+      "postinstall": "cd frontend && yarn install",
+      "dev": "cd frontend && yarn run dev",
+      "build": "cd frontend && yarn run build"
+    }
+  }
+  
