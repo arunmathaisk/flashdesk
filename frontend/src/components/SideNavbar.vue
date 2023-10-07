@@ -3,13 +3,13 @@
     class="h-full w-1/5 bg-red flex-none shadow-lg rounded-r-lg overflow-y-auto"
   >
     <div class="p-6">
-      <h1 class="text-4xl font-semibold text-blue-600 mb-8">FlashDesk</h1>
-      <div class="flex flex-col items-center">
+      <div class="flex">
         <img
           src="../../public/logo.png"
           alt="Logo"
-          class="mb-4 max-w-[150px] max-h-[150px] w-auto h-auto"
+          class="mb-4 max-w-[50px] max-h-[50px] w-auto h-auto"
         />
+        <h1 class="text-4xl font-semibold text-blue-600 justify-center pl-2">FlashDesk</h1>
       </div>
       <ul class="space-y-4">
         <li v-for="item in menuItems" :key="item.id">
