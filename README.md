@@ -1,13 +1,6 @@
 
 <img src="assets/logo.png" alt="FlashDesk Logo" width="200"/>
 
-## Features
-
-- On demand Cloud Workstations.
-- Ability to create and build custom image templates.
-- Ability to install custom dependencies.
-- In browser RDP client support.
-
 ## Installation
 <!-- TOC -->
  - [Local Setup](#local)
