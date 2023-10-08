@@ -21,7 +21,7 @@ def find_available_ports(num_ports, starting_port=49152, ending_port=65535):
         if current_port not in reserved_ports:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 try:
-                    s.bind(("127.0.0.1", current_port))
+                    s.bind(("0.0.0.0", current_port))
                     available_ports.append(current_port)
                 except:
                     pass
