@@ -127,7 +127,6 @@ def fetch_images(image_name):
 
 def docker_hub_pull(image_name):
     try:
-        print("hello")
         frappe.enqueue(
             fetch_images,
             image_name=image_name,
@@ -138,7 +137,6 @@ def docker_hub_pull(image_name):
             enqueue_after_commit=False,  # enqueue the job after the database commit is done at the end of the request
             at_front=False,  # put the job at the front of the queue
         )
-        print("heyyyyyyyyyyyyyyyyy")
         return "sucess"
     except docker.errors.ImageNotFound:
         print(f"Docker Hub Pull failed {image_name}")
