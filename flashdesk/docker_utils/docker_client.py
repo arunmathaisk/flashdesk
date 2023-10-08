@@ -4,15 +4,16 @@ import json
 from datetime import datetime
 import humanize
 
-# import frappe
+import frappe
 
 client = docker.from_env()
 
 DOCKER_EXISTS = False
 
+
 def find_available_ports(num_ports, starting_port=49152, ending_port=65535):
-    reserved_ports = [22, 80, 443, 3306]  #List of reserved ports
-    
+    reserved_ports = [22, 80, 443, 3306]  # List of reserved ports
+
     available_ports = []
     current_port = starting_port
 
@@ -41,16 +42,16 @@ def check_if_docker_exists():
 def start_container_using_image_id(image_id):
     available_ports = find_available_ports(2)
     container = client.containers.run(
-        image=image_id, detach=True, ports={"5901":available_ports[0], "6901":available_ports[1]}
+        image=image_id,
+        detach=True,
+        ports={"5901": available_ports[0], "6901": available_ports[1]},
     )
     metadata = {
-        "container_short_id" : container.short_id,
-        "available_ports" : available_ports,
-        "vnc_port" : available_ports[1],
+        "container_short_id": container.short_id,
+        "available_ports": available_ports,
+        "vnc_port": available_ports[1],
     }
     return metadata
-
-
 
 
 def kill_container_using_container_id(container_id):
@@ -86,7 +87,7 @@ def get_all_actively_running_docker_images():
         for container in containers:
             running_container = {
                 "container_id": container.id,
-                "container_image_tags" :container.image.tags,
+                "container_image_tags": container.image.tags,
                 "container_name": container.name,
                 "container_labels": container.labels,
                 "container_shortid": container.short_id,
@@ -98,6 +99,7 @@ def get_all_actively_running_docker_images():
         print("Error:", e)
         return []
 
+
 def docker_search(query):
     try:
         search_results = client.images.search(query)
@@ -106,12 +108,40 @@ def docker_search(query):
         print("Error:", e)
         return []
 
+
 def remove_image_using_id(image_id):
     try:
-        client.images.remove(image_id,force=True)
+        client.images.remove(image_id, force=True)
         return "sucess"
     except docker.errors.ImageNotFound:
         print(f"Image {image_id} not found")
+        return "error"
+    except docker.errors.APIError as e:
+        print(f"An error occurred: {e}")
+        return "error"
+
+
+def fetch_images(image_name):
+    images = client.images.pull(image_name, all_tags=True)
+
+
+def docker_hub_pull(image_name):
+    try:
+        print("hello")
+        frappe.enqueue(
+            fetch_images,
+            image_name=image_name,
+            queue="default",  # one of short, default, long
+            timeout=None,  # pass timeout manually
+            now=False,  # if this is True, method is run directly (not in a worker)
+            job_name=None,  # specify a job name
+            enqueue_after_commit=False,  # enqueue the job after the database commit is done at the end of the request
+            at_front=False,  # put the job at the front of the queue
+        )
+        print("heyyyyyyyyyyyyyyyyy")
+        return "sucess"
+    except docker.errors.ImageNotFound:
+        print(f"Docker Hub Pull failed {image_name}")
         return "error"
     except docker.errors.APIError as e:
         print(f"An error occurred: {e}")

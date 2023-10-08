@@ -35,6 +35,7 @@
             Image Name : {{ image.name }}
             <button
               class="bg-violet-500 text-white p-2 pl-4 pr-4 hover:bg-violet-600 focus:outline focus:ring focus:border-violet-700"
+              @click="docker_pull(image.name)"
             >
               Pull
             </button>
@@ -93,6 +94,46 @@ export default {
         this.dockerImages = data.message
       } catch (error) {
         console.error('Error fetching images:', error)
+      }
+    },
+    async docker_pull(imageName) {
+      try {
+        const response = await fetch(
+          `/api/method/flashdesk.api.pod_image.docker_pull`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image_name: imageName }),
+          }
+        )
+        if (response.ok) {
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: 'Sucess',
+            text: 'Image pull has started in the backhround. Check events for more information.',
+            showCancelButton: 'true',
+          })
+        } else {
+          const data = await response.json()
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'error',
+            title: 'Error',
+            text: data.messages,
+            showCancelButton: 'true',
+          })
+        }
+      } catch (error) {
+        console.error('Error pulling images:', error)
       }
     },
   },

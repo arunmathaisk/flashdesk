@@ -31,6 +31,14 @@ def get_all_available_pod_images():
 def docker_hub_search(search_query):
     return docker_search(search_query)
 
+
+@frappe.whitelist()
+def docker_pull(image_name):
+    result = docker_hub_pull(image_name) 
+    if result == "error":
+        frappe.throw("Docker Pull has failed.Please check logs for more info.")
+    return result
+
 @frappe.whitelist()
 def delete_image_using_id(image_id):
     result = remove_image_using_id(image_id)
