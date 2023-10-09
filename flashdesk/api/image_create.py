@@ -21,22 +21,3 @@ def insert_image():
     )
     doc.insert()
     return doc
-
-@frappe.whitelist()
-def get_all_published_pod_images():
-    fields = [
-	"name",
-        "image_name",
-        "image_description",
-        "image_file",
-        "image_id",
-        "tags",
-        "created_by",
-        "created_on",
-        "modified_on",
-        "is_active",
-        "status",
-    ]
-    filters = {"status": "Published"}
-    data = frappe.get_all("Pod Image", fields=fields, filters=filters)
-    return data
