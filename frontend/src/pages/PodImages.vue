@@ -16,7 +16,7 @@
           >
             {{ image.image_name }}
             <button
-              class="bg-blue-400 text-white p-2 pl-4 pr-4 hover:bg-blue-600 focus:outline focus:ring focus:border-blue-400"
+             @click="extractFile(image.name)" class="bg-blue-400 text-white p-2 pl-4 pr-4 hover:bg-blue-600 focus:outline focus:ring focus:border-blue-400 " 
             >
               Extract
             </button>
@@ -71,11 +71,39 @@ export default {
           '/api/method/flashdesk.api.pod_image.get_all_published_pod_images'
         )
         const data = await response.json()
+	console.log(data)
         this.podImages = data.message
       } catch (error) {
         console.error('Error fetching images:', error)
       }
     },
+   async extractFile(pod_id){
+    try{
+      let options = {
+        method:"post",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify({pod_id:pod_id})
+      }
+	    const response = await fetch('/api/method/flashdesk.api.pod_image.create_image_from_file',options)
+	    const data = await response.json()
+      this.toast(data.message.type,data.message.title,data.message.body)
+    }catch(error){
+	    console.error('Error extracting tar to image',error)
+    }
+   },toast(icon, title, text) {
+      this.$swal({
+        toast: true,
+        position: 'bottom-right',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: icon,
+        title: title,
+        text: text,
+        showCancelButton: 'true',
+      })
+    }
   },
   components: { SideNavbar },
 }
