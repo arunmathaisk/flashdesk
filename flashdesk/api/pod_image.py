@@ -57,5 +57,3 @@ def create_image_from_file():
     file_name = frappe.get_all("Pod Image", fields=fields, filters=filters)
     result = tar_image_create(file_name[0].image_file,file_name[0].image_name)
     return result
-
-

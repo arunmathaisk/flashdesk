@@ -1,9 +1,5 @@
 import frappe
 import os
-from werkzeug.wrappers import Response
-from werkzeug.wsgi import wrap_file
-from werkzeug.utils import secure_filename
-from flashdesk.docker_utils.docker_client import *
 
 @frappe.whitelist()
 def insert_image():
