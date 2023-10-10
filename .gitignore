@@ -6,4 +6,4 @@ tags
 node_modules
 flashdesk/assets/
 frontend/node_modules
-frontend/
+flashdesk/public/
