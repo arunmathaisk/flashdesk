@@ -1,18 +1,19 @@
-import docker
-import frappe
-import os 
+import os
 import json
-
+import docker
+import json
 
 ll_client = docker.APIClient()
 
-def tar_image_create(filename,image_name):
-    tar_file = os.path.join(frappe.get_site_path("private/files"),filename)
-    image_name = image_name.replace(' ','')
-    image_name = image_name.lower()
-    if os.path.isfile(tar_file):
-        create = ll_client.import_image_from_file(tar_file,repository=image_name)
-        result_json = json.loads(create)
-        if result_json["status"]:
-            reply_dict = {"type":"success","title":"Image ready","body":"Go to Active Pod Images"}
-            return reply_dict
+def tar_image_create(filename, image_name):
+    try:
+        tar_file = os.path.join(filename)
+        image_name = image_name.replace(' ', '').lower()
+
+        if not os.path.isfile(tar_file):
+            print("File does not exist:", tar_file)
+        
+        result = ll_client.import_image_from_file(tar_file, repository=image_name)
+    
+    except Exception as e:
+        print("Exception occurred:", str(e))

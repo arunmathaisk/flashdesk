@@ -49,11 +49,35 @@ def delete_image_using_id(image_id):
         frappe.throw("There was an error while deleting the Pod Image")
     return result
 
+
 @frappe.whitelist()
 def create_image_from_file():
-    fields = ["image_file","image_name"]
-    data = frappe.request.get_json()
-    filters = {"name":data.get("pod_id")}
-    file_name = frappe.get_all("Pod Image", fields=fields, filters=filters)
-    result = tar_image_create(file_name[0].image_file,file_name[0].image_name)
-    return result
+    try:
+        data = frappe.request.get_json()
+        pod_id = data.get("pod_id")
+        if not pod_id:
+            frappe.throw("pod_id is required")
+        
+        pod_image = frappe.get_all("Pod Image", fields=["image_file", "image_name"], filters={"name": pod_id})
+        if not pod_image:
+            frappe.throw(f"No Pod Image found for pod_id {pod_id}")
+
+        image_file = pod_image[0].image_file
+        image_name = pod_image[0].image_name
+
+        frappe.enqueue(
+            tar_image_create,
+            filename=image_file,
+            image_name=image_name,
+            queue="default",  # one of short, default, long
+            timeout=None,  # pass timeout manually
+            now=False,  # if this is True, method is run directly (not in a worker)
+            job_name= f"Loading Tar file to Runnable Image : {image_name}",  # specify a job name
+            enqueue_after_commit=False,  # enqueue the job after the database commit is done at the end of the request
+            at_front=False,  # put the job at the front of the queue
+        )
+        return {"status": "success", "message": "The image extraction process has started in the background. Please check Events for more informstion."}
+
+    except Exception as e:
+        frappe.throw(str(e))
+

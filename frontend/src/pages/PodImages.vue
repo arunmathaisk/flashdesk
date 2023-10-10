@@ -88,7 +88,7 @@ export default {
       }
 	    const response = await fetch('/api/method/flashdesk.api.pod_image.create_image_from_file',options)
 	    const data = await response.json()
-      this.toast(data.message.type,data.message.title,data.message.body)
+      this.toast(data.message.type,"Pod Image Extraction",data.message.message)
     }catch(error){
 	    console.error('Error extracting tar to image',error)
     }
@@ -98,7 +98,7 @@ export default {
         position: 'bottom-right',
         showConfirmButton: false,
         timer: 3000,
-        icon: icon,
+        icon: 'success',
         title: title,
         text: text,
         showCancelButton: 'true',
