@@ -58,7 +58,13 @@ const routes = [
     component: () => import('@/pages/RunningPods.vue'),
     meta: { requiresAuth: true },
   },
-]
+  {
+    path: '/Events',
+    name: 'Events',
+    component: () => import('@/pages/Events.vue'),
+    meta: { requiresAuth: true },
+  },
+] 
 
 let router = createRouter({
   history: createWebHistory('/frontend'),

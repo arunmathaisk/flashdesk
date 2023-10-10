@@ -145,7 +145,13 @@ app_license = "MIT"
 #		"flashdesk.tasks.monthly"
 #	],
 # }
-
+# scheduler_events = {
+#     "cron": {
+#         "* * * * *": [
+#             "flashdesk.api.rq_stuff.get_new_completed_queues"
+#         ]
+#     }
+# }
 # Testing
 # -------
 

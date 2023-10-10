@@ -154,3 +154,13 @@ def docker_hub_pull(image_name):
     except docker.errors.APIError as e:
         print(f"An error occurred: {e}")
         return "error"
+
+
+def docker_events():
+    events = client.events(decode=True)
+    for event in events:
+        print(event)
+        # frappe.publish_realtime('docker_events', data={'event': event})
+
+
+
