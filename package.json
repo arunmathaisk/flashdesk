@@ -1,11 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cd frontend && yarn install",
-    "dev": "cd frontend && yarn run dev",
-    "build": "cd frontend && yarn run build"
-  },
-  "dependencies": {
-    "socket.io-client": "^4.7.2"
+    "postinstall": "cd frontend && npm install",
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
   }
 }
