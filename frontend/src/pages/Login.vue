@@ -3,6 +3,7 @@
     title="Log in to FlashDesk"
     :class="{ 'pointer-events-none': loading }"
   >
+    <img src="../../public/logo.png" alt="App Logo"  class="mx-auto block mb-4 w-32 h-32" />
     <form class="flex flex-col" @submit.prevent="">
       <Input
         v-model="email"
@@ -26,16 +27,18 @@
       />
       <ErrorMessage :message="errorMessage" class="mt-4" />
       <Button
-        class="mt-4 focus:ring-0 focus:ring-offset-0"
-        :loading="loading"
-        appearance="primary"
-        @click="login"
-      >
-        Submit
-      </Button>
+  class="mt-4 focus:ring-0 focus:ring-offset-0 rainbow text-white"
+  :loading="loading"
+  @click="login"
+>
+  Login
+</Button>
+
+
     </form>
   </LoginBox>
 </template>
+
 
 <script>
 import { Input, ErrorMessage } from 'frappe-ui'
@@ -99,4 +102,19 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.rainbow {
+  background: linear-gradient(45deg, rgba(255, 0, 102, 0.8), rgba(68, 204, 0, 0.8), rgba(0, 51, 255, 0.8), rgba(255, 0, 68, 0.8), rgba(0, 204, 68, 0.8));
+  background-size: 300% 300%;
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+</style>
