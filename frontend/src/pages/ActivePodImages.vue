@@ -117,10 +117,14 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true',
           })
-let currentOrigin = window.location.origin;
-if (currentOrigin.includes(":")) {
-    currentOrigin = currentOrigin.substring(0, currentOrigin.lastIndexOf(":"));
-}
+const currentOrigin = window.location.origin;
+const currentProtocol = window.location.protocol;
+const currentHostname = window.location.hostname;
+
+const newTab = window.open(
+    `${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,
+    '_blank'
+);
 
 const newTab = window.open(
     `http://${currentOrigin}:${data.message.vnc_port}`,
