@@ -118,8 +118,7 @@ export default {
             showCancelButton: 'true',
           })
           const newTab = window.open(
-            'http://localhost:' + data.message.vnc_port,
-            '_blank'
+          `${window.location.origin.replace(/^http/, 'http')}:${data.message.vnc_port}`, '_blank'
           )
           this.fetchActiveImages()
         } else {
