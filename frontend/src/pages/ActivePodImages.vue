@@ -117,9 +117,12 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true',
           })
-          const newTab = window.open(
-          `${window.location.origin.replace(/^http/, 'http')}:${data.message.vnc_port}`, '_blank'
-          )
+        
+const currentOrigin = window.location.origin;
+const newTab = window.open(
+    `http://${currentOrigin}:${data.message.vnc_port}`,
+    '_blank'
+);
           this.fetchActiveImages()
         } else {
           this.$swal({
