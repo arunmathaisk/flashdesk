@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-white-200 overflow-auto">
@@ -117,19 +117,10 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true',
           })
-const currentOrigin = window.location.origin;
-const currentProtocol = window.location.protocol;
-const currentHostname = window.location.hostname;
-
-const newTab = window.open(
-    `${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,
-    '_blank'
-);
-
-const newTab = window.open(
-    `http://${currentOrigin}:${data.message.vnc_port}`,
-    '_blank'
-);
+          const currentOrigin = window.location.origin;
+          const currentProtocol = window.location.protocol;
+          const currentHostname = window.location.hostname;
+          const newTab = window.open(`${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,'_blank');
           this.fetchActiveImages()
         } else {
           this.$swal({
