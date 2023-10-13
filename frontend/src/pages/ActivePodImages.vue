@@ -117,8 +117,11 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true',
           })
-        
-const currentOrigin = window.location.origin;
+let currentOrigin = window.location.origin;
+if (currentOrigin.includes(":")) {
+    currentOrigin = currentOrigin.substring(0, currentOrigin.lastIndexOf(":"));
+}
+
 const newTab = window.open(
     `http://${currentOrigin}:${data.message.vnc_port}`,
     '_blank'
