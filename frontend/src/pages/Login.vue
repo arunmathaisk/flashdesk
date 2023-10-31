@@ -1,71 +1,45 @@
 <template>
-  <LoginBox
-    title="Log in to FlashDesk"
-    :class="{ 'pointer-events-none': loading }"
-  >
-    <img src="../../public/logo.png" alt="App Logo"  class="mx-auto block mb-4 w-32 h-32" />
-    <form class="flex flex-col" @submit.prevent="">
-      <Input
-        v-model="email"
-        class="mb-4"
-        label="Email"
-        placeholder="johndoe@mail.com"
-        name="email"
-        autocomplete="email"
-        :type="email !== 'Administrator' ? 'email' : 'text'"
-        required
-      />
-
-      <Input
-        v-model="password"
-        label="Password"
-        type="password"
-        placeholder="••••••••"
-        name="password"
-        autocomplete="current-password"
-        required
-      />
-      <ErrorMessage :message="errorMessage" class="mt-4" />
-      <Button
-  class="mt-4 focus:ring-0 focus:ring-offset-0 rainbow text-white"
-  :loading="loading"
-  @click="login"
->
-  Login
-</Button>
-
-
+  <div class="flex flex-col items-center min-h-screen bg-gray-100">
+    <h2 class="text-2xl font-bold mb-4">{{ title }}</h2>
+    <img src="../../public/logo.png" alt="App Logo" class="mx-auto mb-4 w-32 h-32" />
+    <form class="w-80 flex flex-col bg-white p-6 rounded-lg shadow-md" @submit.prevent="login">
+      <div class="mb-4">
+        <label for="email" class="text-lg">Email</label>
+        <input v-model="email" class="input input-bordered mt-1 p-2 rounded-md" type="text" placeholder="johndoe@mail.com" required />
+      </div>
+      <div class="mb-4">
+        <label for="password" class="text-lg">Password</label>
+        <input v-model="password" type="password" class="input input-bordered mt-1 p-2 rounded-md" placeholder="••••••••" required />
+      </div>
+      <p v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</p>
+      <button class="btn btn-primary mt-4" :class="{ 'opacity-50 cursor-not-allowed': loading }" type="submit">
+        <span v-if="!loading">Login</span>
+        <span v-else>Loading...</span>
+      </button>
     </form>
-  </LoginBox>
+  </div>
 </template>
 
-
 <script>
-import { Input, ErrorMessage } from 'frappe-ui'
-import LoginBox from '@/components/LoginBox.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useUserStore } from '@/stores/user.js'
 
 export default {
   name: 'Login',
-  components: {
-    LoginBox,
-    Input,
-    ErrorMessage,
-  },
   data() {
     return {
       email: null,
       password: null,
       errorMessage: null,
-    }
+      title: 'Welcome to Our App'
+    };
   },
   methods: {
     async login() {
       const data = {
         usr: this.email,
         pwd: this.password,
-      }
+      };
 
       fetch('/api/method/login', {
         method: 'POST',
@@ -77,44 +51,49 @@ export default {
         .then((response) => response.json())
         .then((responseData) => {
           if (responseData.message === 'Logged In') {
-            const authStore = useAuthStore()
-            const userStore = useUserStore()
+            const authStore = useAuthStore();
+            const userStore = useUserStore();
             let getCookies = () => {
               return Object.fromEntries(
                 document.cookie
                   .split('; ')
                   .map((cookie) => cookie.split('='))
                   .map((entry) => [entry[0], decodeURIComponent(entry[1])])
-              )
-            }
+              );
+            };
             userStore.$patch((state) => {
-              ;(state.user.user_id = getCookies().user_id),
-                (state.user.full_name = getCookies().full_name)
-            })
-            authStore.login()
-            this.$router.push('/')
+              state.user.user_id = getCookies().user_id;
+              state.user.full_name = getCookies().full_name;
+            });
+            authStore.login();
+            this.$router.push('/');
           } else {
-            this.errorMessage = 'Invalid credentials'
+            this.errorMessage = 'Invalid credentials';
           }
         })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     },
   },
-}
+};
 </script>
 
-<style scoped>
-.rainbow {
-  background: linear-gradient(45deg, rgba(255, 0, 102, 0.8), rgba(68, 204, 0, 0.8), rgba(0, 51, 255, 0.8), rgba(255, 0, 68, 0.8), rgba(0, 204, 68, 0.8));
-  background-size: 300% 300%;
-  animation: rainbow 5s linear infinite;
-}
 
-@keyframes rainbow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
+
+<style>
+/* Add any required styles here */
+.input {
+  border: 1px solid #d2d6dc;
+}
+.input-bordered {
+  border: 1px solid #d2d6dc;
+}
+.btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+.btn:hover {
+  background-color: #4338ca;
 }
 </style>

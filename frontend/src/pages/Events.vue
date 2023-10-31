@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { Dialog } from 'frappe-ui'
 import SideNavbar from '@/components/SideNavbar.vue'
 import EventNotifications from '@/components/EventNotifications.vue'
 

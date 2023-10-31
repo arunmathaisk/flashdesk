@@ -57,7 +57,6 @@
 
 <script>
 import FileUpload from '@/components/FileUpload.vue'
-import { FastForwardIcon } from 'vue-feather-icons'
 export default {
   name: 'Forms',
   props: ['form_label', 'form_details', 'form_action'],

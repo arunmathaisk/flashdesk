@@ -11,6 +11,7 @@
         />
         <h1 class="text-4xl font-semibold text-blue-600 justify-center pl-2">FlashDesk</h1>
       </div>
+      <div class="h-full border-l-2 border-blue-500"></div> <!-- Vertical line -->
       <ul class="space-y-4">
         <li v-for="item in menuItems" :key="item.id">
           <router-link
@@ -19,8 +20,7 @@
           >
             {{ item.title }}
           </router-link>
-          <div class="h-px bg-sky-500"></div>
-          <!-- Line of distinction -->
+          <div class="h-px bg-sky-500"></div> <!-- Horizontal line -->
         </li>
       </ul>
     </div>
@@ -38,9 +38,9 @@
   </nav>
 </template>
 
+
 <script>
 import { useUserStore } from '@/stores/user.js'
-import { FeatherIcon } from 'vue-feather-icons'
 
 export default {
   name: 'SideNavbar',
