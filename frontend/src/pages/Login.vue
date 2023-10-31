@@ -9,34 +9,21 @@
       class="mx-auto block mb-4 w-32 h-32"
     />
     <form class="flex flex-col" @submit.prevent="">
-      <div class="p-2">
-
       <Input
         v-model="email"
-        size="sm"
-        variant="subtle"
+        class="mb-4"
         label="Email"
         placeholder="johndoe@mail.com"
         name="email"
         autocomplete="email"
-        :type="email !== 'Administrator' ? 'email' : 'text'"
-        required
-      />
-    </div>
-    <div class="p-2">
-
+        :type="email !== 'Administrator' ? 'email' : 'text'" />
       <Input
         v-model="password"
-        size="sm"
-        variant="subtle"
         label="Password"
         type="password"
         placeholder="••••••••"
         name="password"
-        autocomplete="current-password"
-        required
-      />
-    </div>
+        autocomplete="current-password" />
 
       <ErrorMessage :message="errorMessage" class="mt-4" />
       <br>
