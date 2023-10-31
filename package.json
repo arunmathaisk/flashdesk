@@ -4,5 +4,8 @@
     "postinstall": "cd frontend && yarn install",
     "dev": "cd frontend && yarn run dev",
     "build": "cd frontend && yarn run build"
+  },
+  "dependencies": {
+    "daisyui": "^3.9.4"
   }
 }

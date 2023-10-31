@@ -1,5 +1,5 @@
 <template>
-  <div class="flex overflow-hidden">
+  <div class="overflow-hidden">
     <SideNavbar />
     <!-- <div class="flex flex-col w-screen bg-white-200 overflow-auto">
       <UserDisclaimer />
