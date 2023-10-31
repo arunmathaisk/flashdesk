@@ -3,11 +3,18 @@
     title="Log in to FlashDesk"
     :class="{ 'pointer-events-none': loading }"
   >
-    <img src="../../public/logo.png" alt="App Logo"  class="mx-auto block mb-4 w-32 h-32" />
+    <img
+      src="../../public/logo.png"
+      alt="App Logo"
+      class="mx-auto block mb-4 w-32 h-32"
+    />
     <form class="flex flex-col" @submit.prevent="">
+      <div class="p-2">
+
       <Input
         v-model="email"
-        class="mb-4"
+        size="sm"
+        variant="subtle"
         label="Email"
         placeholder="johndoe@mail.com"
         name="email"
@@ -15,9 +22,13 @@
         :type="email !== 'Administrator' ? 'email' : 'text'"
         required
       />
+    </div>
+    <div class="p-2">
 
       <Input
         v-model="password"
+        size="sm"
+        variant="subtle"
         label="Password"
         type="password"
         placeholder="••••••••"
@@ -25,20 +36,27 @@
         autocomplete="current-password"
         required
       />
-      <ErrorMessage :message="errorMessage" class="mt-4" />
-      <Button
-  class="mt-4 focus:ring-0 focus:ring-offset-0 rainbow text-white"
-  :loading="loading"
-  @click="login"
->
-  Login
-</Button>
+    </div>
 
+      <ErrorMessage :message="errorMessage" class="mt-4" />
+      <br>
+      <Button
+        :variant="'solid'"
+        theme="gray"
+        size="sm"
+        label="Button"
+        :loading="false"
+        :loadingText="null"
+        :disabled="false"
+        :link="null"
+        @click="login"
+      >
+        Login
+      </Button>
 
     </form>
   </LoginBox>
 </template>
-
 
 <script>
 import { Input, ErrorMessage } from 'frappe-ui'
@@ -104,7 +122,14 @@ export default {
 
 <style scoped>
 .rainbow {
-  background: linear-gradient(45deg, rgba(255, 0, 102, 0.8), rgba(68, 204, 0, 0.8), rgba(0, 51, 255, 0.8), rgba(255, 0, 68, 0.8), rgba(0, 204, 68, 0.8));
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 102, 0.8),
+    rgba(68, 204, 0, 0.8),
+    rgba(0, 51, 255, 0.8),
+    rgba(255, 0, 68, 0.8),
+    rgba(0, 204, 68, 0.8)
+  );
   background-size: 300% 300%;
   animation: rainbow 5s linear infinite;
 }
