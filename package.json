@@ -1,14 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "cd frontend && yarn install",
-    "dev": "cd frontend && yarn run dev",
-    "build": "cd frontend && yarn run build"
-  },
-  "dependencies": {
-    "highcharts": "^11.2.0",
-    "highcharts-vue": "^1.4.3",
-    "install": "^0.13.0",
-    "npm": "^10.2.2"
+    "postinstall": "cd frontend && npm install",
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
   }
 }

@@ -57,5 +57,6 @@ export default defineConfig({
       "engine.io-client",
       "tailwind.config.js",
     ],
+    exclude: ['vue'],
   },
 });

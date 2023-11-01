@@ -11,9 +11,10 @@
     "@vueuse/core": "^10.3.0",
     "feather-icons": "^4.28.0",
     "frappe-ui": "^0.1.14",
+    "highcharts": "^11.2.0",
     "pinia": "^2.1.6",
     "socket.io-client": "^4.7.2",
-    "vue": "^3.2.25",
+    "vue": "^3.3.7",
     "vue-feather-icons": "^5.1.0",
     "vue-router": "^4.0.12",
     "vue-sweetalert2": "^5.0.5"
