@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row">
+  <div class="flex flex-col">
     <div class="card" style="background-color: #ffffff; border: 2px solid #1E40AF; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 50%;">
       <h1 style="color: #1E40AF; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 20px;">
         Hi ! {{ userDetails.full_name }} 👋
@@ -12,7 +12,7 @@
           </p>
           <p style="color: #333333;">
             <strong>Email:</strong> {{ userDetails.email }}
-          </p>
+          </p>  
           <p style="color: #333333;">
             <strong>Username:</strong> {{ userDetails.username }}
           </p>

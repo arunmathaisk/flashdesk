@@ -3,16 +3,21 @@
     class="h-full w-1/5 bg-red flex-none shadow-lg rounded-none overflow-y-auto relative"
   >
     <div class="p-6">
-      <div class="flex">
-        <img
-          src="../../public/logo.png"
-          alt="Logo"
-          class="mb-4 max-w-[50px] max-h-[50px] w-auto h-auto"
-        />
-        <h1 class="text-4xl font-semibold text-blue-600 justify-center pl-2">
-          FlashDesk
-        </h1>
-      </div>
+      <div class="flex items-center">
+  <div class="flex-shrink-0 mr-4">
+    <img
+      src="../../public/logo.png"
+      alt="Logo"
+      class="mb-4 max-w-[50px] max-h-[50px]"
+    />
+  </div>
+  <div class="pl-6">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-blue-600">
+      FlashDesk
+    </h1>
+  </div>
+</div>
+
       <hr class="border-t-2 border-blue-500 my-6" />
 
       <ul class="space-y-2">
