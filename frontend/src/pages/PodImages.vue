@@ -8,38 +8,38 @@
         <div
           v-for="(image, index) in podImages"
           :key="index"
-          class="border-2 border-blue-400 bg-white shadow-lg p-6 m-6"
+          class="border-2 border-blue-400 bg-white shadow-lg p-6 m-6 rounded-md"
         >
         <h3
-            class="text-xl font-bold text-gray-800"
+            class="text-xl font-bold text-gray-800 rounded-md"
             style="display: grid; grid-template-columns: 1fr auto"
           >
             {{ image.image_name }}
             <button
-             @click="extractFile(image.name)" class="bg-blue-400 text-white p-2 pl-4 pr-4 hover:bg-blue-600 focus:outline focus:ring focus:border-blue-400 " 
+             @click="extractFile(image.name)" class="bg-blue-400 text-white p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 " 
             >
               Extract
             </button>
           </h3>
-          <hr class="border-t-2 border-blue-400 my-6" />
+          <hr class="border-t-2 border-blue-400 my-6 rounded-md" />
           <div class="mt-4">
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Image ID:</strong> {{ image.image_id }}
               </p>
             </div>
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Created On:</strong>
                 {{ new Date(image.created_on).toDateString() }}
               </p>
             </div>
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Created By:</strong> {{ image.created_by }}
               </p>
             </div>
-            <div class="mt-2">
+            <div class="mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Description:</strong> {{ image.image_description }}
               </p>
@@ -51,6 +51,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'

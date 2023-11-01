@@ -1,16 +1,16 @@
-  <template>
+<template>
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-white-200 overflow-auto">
       <h1 class="text-3xl font-semibold mb-6 text-gray-800">
         Active Runnable Pod Images
       </h1>
-      <hr class="border-t-2 border-green-400 my-6" />
+      <hr class="border-t-2 border-green-600 my-6" />
       <div class="grid grid-cols-1">
         <div
           v-for="(image, index) in activeImages"
           :key="index"
-          class="border-2 border-green-400 bg-white shadow-lg p-6 m-6"
+          class="border-2 border-green-600 bg-white shadow-lg p-6 m-6 rounded"
         >
           <h3
             class="text-xl font-bold text-gray-800"
@@ -19,41 +19,41 @@
             Image Tags : {{ image.tags }}
             <button
               @click="runPod(image.image_id)"
-              class="bg-green-400 text-white p-2 pl-4 pr-4 hover:bg-green-600 focus:outline focus:ring focus:border-green-400"
+              class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             >
               Run
             </button>
             <button
               @click="deleteImage(image.image_id)"
-              class="bg-red-400 text-white p-2 pl-4 pr-4 ml-4 hover:bg-red-600 focus:outline focus:ring focus:border-red-400"
+              class="bg-red-600 text-white p-2 pl-4 pr-4 ml-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
             >
               Remove
             </button>
           </h3>
-          <hr class="border-t-2 border-green-400 my-6" />
+          <hr class="border-t-2 border-green-600 my-6" />
           <div class="mt-4">
-            <div class="pb-2 border-green-400">
+            <div class="pb-2 border-green-600">
               <p class="text-gray-700">
                 <strong>ID:</strong> {{ image.image_id }}
               </p>
             </div>
-            <div class="pb-2 mt-2 border-green-400">
+            <div class="pb-2 mt-2 border-green-600">
               <p class="text-gray-700">
                 <strong>Created On:</strong>
                 {{ new Date(image.created).toDateString() }}
               </p>
             </div>
-            <div class="pb-2 border-green-400">
+            <div class="pb-2 border-green-600">
               <p class="text-gray-700">
                 <strong>Short ID:</strong> {{ image.short_id }}
               </p>
             </div>
-            <div class="pb-2 mt-2 border-green-400">
+            <div class="pb-2 mt-2 border-green-600">
               <p class="text-gray-700">
                 <strong>Architecture:</strong> {{ image.architecture }}
               </p>
             </div>
-            <div class="pb-2 mt-2 border-green-400">
+            <div class="pb-2 mt-2 border-green-600">
               <p class="text-gray-700"><strong>OS:</strong> {{ image.os }}</p>
             </div>
             <div class="mt-2">
@@ -68,6 +68,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
@@ -117,10 +118,13 @@ export default {
             text: 'Pod Run Sucessfully',
             showCancelButton: 'true',
           })
-          const currentOrigin = window.location.origin;
-          const currentProtocol = window.location.protocol;
-          const currentHostname = window.location.hostname;
-          const newTab = window.open(`${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,'_blank');
+          const currentOrigin = window.location.origin
+          const currentProtocol = window.location.protocol
+          const currentHostname = window.location.hostname
+          const newTab = window.open(
+            `${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,
+            '_blank'
+          )
           this.fetchActiveImages()
         } else {
           this.$swal({
@@ -134,8 +138,7 @@ export default {
             showCancelButton: 'true',
           })
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     },
     async deleteImage(image_id) {
       try {

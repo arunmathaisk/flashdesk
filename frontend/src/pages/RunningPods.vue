@@ -7,27 +7,27 @@
       </h1>
       <hr class="border-t-2 border-teal-400 my-6" />
       <div class="grid grid-cols-1">
-        <div v-for="(pod, index) in runningPods" :key="index" class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6">
-          <h3 class="text-xl font-bold text-gray-800" style="display: grid; grid-template-columns: 1fr auto">
+        <div v-for="(pod, index) in runningPods" :key="index" class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded">
+          <h3 class="text-xl font-bold text-gray-800 rounded" style="display: grid; grid-template-columns: 1fr auto">
             Container Name : {{ pod.container_name }}
             <button @click="terminatePod(pod.container_id)"
-              class="bg-teal-500 text-white p-2 pl-4 pr-4 hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700">
+              class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700">
               Terminate
             </button>
           </h3>
-          <hr class="border-t-2 border-teal-400 my-6" />
+          <hr class="border-t-2 border-teal-400 my-6 rounded" />
           <div class="mt-4">
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded">
               <p class="text-gray-700">
                 <strong>Short ID : </strong> {{ pod.container_shortid }}
               </p>
             </div>
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded">
               <p class="text-gray-700">
                 <strong>Tags : </strong> {{ pod.container_image_tags }}
               </p>
             </div>
-            <div class="mt-2">
+            <div class="mt-2 rounded">
               <p class="text-gray-700">
                 <strong>Status : </strong> {{ pod.container_status }}
               </p>
@@ -39,6 +39,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'

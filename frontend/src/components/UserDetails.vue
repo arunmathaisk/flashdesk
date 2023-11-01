@@ -1,45 +1,38 @@
 <template>
-      <div class="flex flex-row">
-    <div class="border-2 border-sky-400 bg-white max-w-md shadow-lg p-6 m-6 basis-1/2">
-    <h1 class="text-2xl text-blue-600 font-semibold mb-4 text-center">
-      Hi ! {{ userDetails.full_name }} 👋
-    </h1>
-    <hr class="border-t-2 border-sky-400 my-6" />
-    <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
-    <div v-else>
-      <div class="mb-4">
-          <p class="text-gray-600">
+  <div class="flex flex-row">
+    <div class="card" style="background-color: #ffffff; border: 2px solid #1E40AF; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 50%;">
+      <h1 style="color: #1E40AF; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 20px;">
+        Hi ! {{ userDetails.full_name }} 👋
+      </h1>
+      <div v-if="loading" style="color: #666666; margin-bottom: 20px; text-align: center;">Loading...</div>
+      <div v-else>
+        <div style="margin-bottom: 20px;">
+          <p style="color: #333333;">
             <strong>Full Name:</strong> {{ userDetails.full_name }}
           </p>
-          <p class="text-gray-600">
+          <p style="color: #333333;">
             <strong>Email:</strong> {{ userDetails.email }}
           </p>
-          <p class="text-gray-600">
+          <p style="color: #333333;">
             <strong>Username:</strong> {{ userDetails.username }}
           </p>
+        </div>
+      </div>
     </div>
-      <!-- <div class="mb-4">
-          <p class="text-gray-600"><strong>Roles:</strong></p>
-          <ul class="list-disc list-inside">
-            <li v-for="role in userDetails.roles" :key="role">{{ role }}</li>
-          </ul>
-        </div> -->
+    <div class="card" style="background-color: #ffffff; border: 2px solid #5cb85c; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 25%;">
+      <div v-if="loading" style="color: #666666; margin-bottom: 20px; text-align: center;">Loading...</div>
+      <div v-else>
+        <h3 style="color: #28a745; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 20px;">
+          Last Login 📗
+        </h3>
+        <span style="color: #666666; font-size: 18px; display: block; text-align: center;">
+          {{ new Date(last_login).toLocaleString() }}
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="border-2 border-green-400 bg-white max-width-max shadow-lg p-6 m-6 basis-1/4">
-    <div v-if="loading" class="text-gray-600 mb-4 text-center">Loading...</div>
-    <div v-else>
-      <h3 class="text-2xl text-green-600 font-semibold mb-4 text-center">
-        Last Login 📗
-        <hr class="border-t-2 border-green-400 my-6" />
-        <span class="text-gray-600 text-xl">
-          {{ new Date(last_login).toLocaleString() }}</span
-        >
-      </h3>
-    </div>
-  </div>
   </div>
 </template>
+
 
 <script>
 import { useUserStore } from '@/stores/user.js'

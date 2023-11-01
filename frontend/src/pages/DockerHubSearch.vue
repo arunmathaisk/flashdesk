@@ -10,13 +10,13 @@
         <input
           type="text"
           placeholder="Search..."
-          class="p-2 border border-violet-500 focus:ring-violet-300 flex-grow"
+          class="p-2 border border-violet-500 focus:ring-violet-300 flex-grow rounded-md"
           v-model="searchInput"
           @input="fetchDockerHubImages"
         />
         <div class="pl-4">
           <button
-            class="bg-violet-500 text-white p-2 hover:bg-violet-600 focus:outline focus:ring focus:border-violet-700"
+            class="bg-violet-500 text-white p-2 rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-700"
           >
             Search
           </button>
@@ -26,39 +26,39 @@
         <div
           v-for="(image, index) in dockerImages"
           :key="index"
-          class="border-2 border-violet-400 bg-white shadow-lg p-6 m-6"
+          class="border-2 border-violet-400 bg-white shadow-lg p-6 m-6 rounded-md"
         >
           <h3
-            class="text-xl font-bold text-gray-800"
+            class="text-xl font-bold text-gray-800 rounded-md"
             style="display: grid; grid-template-columns: 1fr auto"
           >
             Image Name : {{ image.name }}
             <button
-              class="bg-violet-500 text-white p-2 pl-4 pr-4 hover:bg-violet-600 focus:outline focus:ring focus:border-violet-700"
+              class="bg-violet-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-700"
               @click="docker_pull(image.name)"
             >
               Pull
             </button>
           </h3>
-          <hr class="border-t-2 border-violet-400 my-6" />
+          <hr class="border-t-2 border-violet-400 my-6 rounded-md" />
           <div class="mt-4">
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Official :</strong> {{ image.is_official }}
               </p>
             </div>
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Automated :</strong> {{ image.is_automated }}
               </p>
             </div>
-            <div class="pb-2 mt-2">
+            <div class="pb-2 mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Star Count:</strong> {{ image.star_count }}
               </p>
             </div>
 
-            <div class="mt-2">
+            <div class="mt-2 rounded-md">
               <p class="text-gray-700">
                 <strong>Description :</strong> {{ image.description }}
               </p>
@@ -70,6 +70,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'

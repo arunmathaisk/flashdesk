@@ -29,7 +29,7 @@
       <br>
       <Button
         :variant="'solid'"
-        theme="gray"
+        theme="blue"
         size="sm"
         label="Button"
         :loading="false"
