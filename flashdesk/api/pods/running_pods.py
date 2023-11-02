@@ -15,4 +15,10 @@ def terminate_pod(container_id):
 @frappe.whitelist()
 def run_pod(image_id):
         return start_container_using_image_id(image_id)
+
+@frappe.whitelist()
+def get_all_terminated_pods():
+        return get_terminated_containers()
+
+
     

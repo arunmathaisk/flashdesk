@@ -86,8 +86,27 @@ def start_container_using_image_id(image_id):
     return container_metadata
 
 
+def get_terminated_containers():
+    terminated_containers = frappe.get_all(
+        "Container Metadata",
+        filters={"terminated_timestamp": ["!=", None]},
+        fields=["name", "container_id", "container_short_id", "image_id", "container_image_tags", "available_ports", "vnc_port", "port_bindings", "timestamp", "container_labels", "terminated_timestamp"],
+    )
+    return terminated_containers
+
+
 def kill_container_using_container_id(container_id):
-    client.containers.get(container_id).kill()
+    container_doc = frappe.get_doc("Container Metadata", {"container_id": container_id})
+    if container_doc:
+        try:
+            client.containers.get(container_id).kill()
+        except Exception as e:
+            frappe.log_error(f"Error killing container {container_id}: {e}")
+        else:
+            container_doc.terminated_timestamp = datetime.now()
+            container_doc.save()
+    else:
+        frappe.throw(f"Container with ID {container_id} not found.")
 
 
 def get_all_filesystem_docker_images():

@@ -14,7 +14,8 @@
   "vnc_port",
   "port_bindings",
   "timestamp",
-  "container_labels"
+  "container_labels",
+  "terminated_timestamp"
  ],
  "fields": [
   {
@@ -69,11 +70,16 @@
    "fieldname": "container_labels",
    "fieldtype": "Text",
    "label": "Labels"
+  },
+  {
+   "fieldname": "terminated_timestamp",
+   "fieldtype": "Datetime",
+   "label": "Terminated Timestamp"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-02 12:52:18.157713",
+ "modified": "2023-11-02 15:06:53.824013",
  "modified_by": "Administrator",
  "module": "FlashDesk",
  "name": "Container Metadata",
