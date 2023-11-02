@@ -74,7 +74,7 @@ export default {
         { id: 4, title: 'Active Pod Images', path: '/ActivePodImages' },
         { id: 5, title: 'Running Pods ', path: '/RunningPods' },
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
-        { id: 7, title: 'Events', path: '/Events' },
+        { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
       ],
     }
   },
