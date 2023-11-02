@@ -16,12 +16,20 @@
             <h3 class="text-xl font-bold text-gray-800">
               Container Name: {{ pod.container_name }}
             </h3>
-            <button
-              @click="terminatePod(pod.container_id)"
-              class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
-            >
-              Terminate
-            </button>
+            <div class="flex">
+              <button
+                @click="openNewTab(pod)"
+                class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
+              >
+                View
+              </button>
+              <button
+                @click="terminatePod(pod.container_id)"
+                class="bg-red-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-red-600 focus:outline focus:ring focus:border-red-700 ml-4"
+              >
+                Terminate
+              </button>
+            </div>
           </div>
           <hr class="border-t-2 border-teal-400 my-6 rounded" />
           <div class="mt-4 grid grid-cols-2 gap-4">
@@ -87,6 +95,14 @@ export default {
     this.fetchRunningPods()
   },
   methods: {
+    openNewTab(pod) {
+      const currentProtocol = window.location.protocol;
+      const currentHostname = window.location.hostname;
+      window.open(
+        `${currentProtocol}//${currentHostname}:${pod.container_vnc_port}/vnc.html`,
+        '_blank'
+      );
+    },
     async fetchRunningPods() {
       try {
         const response = await fetch(
