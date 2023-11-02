@@ -41,7 +41,7 @@ def check_if_docker_exists():
 
 def start_container_using_image_id(image_id):
     image = client.images.get(image_id)
-    exposed_ports = image.attrs["Config"]["ExposedPorts"]
+    exposed_ports = {"6080/tcp":{},"56780/tcp":{}}
     num_exposed_ports = len(exposed_ports)
     available_ports = find_available_ports(num_exposed_ports)
     port_bindings = {}
@@ -58,7 +58,7 @@ def start_container_using_image_id(image_id):
     metadata = {
         "container_short_id": container.short_id,
         "available_ports": available_ports,
-        "vnc_port": available_ports[1] if len(available_ports) > 1 else 6969696969,
+        "vnc_port": available_ports[0] if len(available_ports) > 1 else 6969696969,
         "port_bindings": port_bindings,
     }
     return metadata

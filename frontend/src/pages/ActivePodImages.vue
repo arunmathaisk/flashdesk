@@ -122,7 +122,7 @@ export default {
           const currentProtocol = window.location.protocol
           const currentHostname = window.location.hostname
           const newTab = window.open(
-            `${currentProtocol}//${currentHostname}:${data.message.vnc_port}`,
+            `${currentProtocol}//${currentHostname}:${data.message.vnc_port}/vnc.html`,
             '_blank'
           )
           this.fetchActiveImages()
