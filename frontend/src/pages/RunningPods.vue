@@ -7,29 +7,62 @@
       </h1>
       <hr class="border-t-2 border-teal-400 my-6" />
       <div class="grid grid-cols-1">
-        <div v-for="(pod, index) in runningPods" :key="index" class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded">
-          <h3 class="text-xl font-bold text-gray-800 rounded" style="display: grid; grid-template-columns: 1fr auto">
-            Container Name : {{ pod.container_name }}
-            <button @click="terminatePod(pod.container_id)"
-              class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700">
+        <div
+          v-for="(pod, index) in runningPods"
+          :key="index"
+          class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-gray-800">
+              Container Name: {{ pod.container_name }}
+            </h3>
+            <button
+              @click="terminatePod(pod.container_id)"
+              class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
+            >
               Terminate
             </button>
-          </h3>
+          </div>
           <hr class="border-t-2 border-teal-400 my-6 rounded" />
-          <div class="mt-4">
-            <div class="pb-2 mt-2 rounded">
+          <div class="mt-4 grid grid-cols-2 gap-4">
+            <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Short ID : </strong> {{ pod.container_shortid }}
+                <strong>Short ID: </strong> {{ pod.container_shortid }}
               </p>
             </div>
-            <div class="pb-2 mt-2 rounded">
+            <div class="rounded">
               <p class="text-gray-700">
-                <strong>Tags : </strong> {{ pod.container_image_tags }}
+                <strong>Status: &nbsp</strong>
+                <span
+                  class="h-3 w-3 rounded-full inline-block mr-2"
+                  :class="{
+                    'bg-green-500': pod.container_status === 'running',
+                    'bg-red-500': pod.container_status !== 'running',
+                  }"
+                ></span>
+                {{ pod.container_status }}
               </p>
             </div>
-            <div class="mt-2 rounded">
+            <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Status : </strong> {{ pod.container_status }}
+                <strong>Tags: </strong> {{ pod.container_image_tags }}
+              </p>
+            </div>
+            <div class="rounded">
+              <p class="text-gray-700">
+                <strong>VNC Port: </strong> {{ pod.container_vnc_port }}
+              </p>
+            </div>
+            <div class="pb-2 rounded">
+              <p class="text-gray-700">
+                <strong>Available Ports: </strong>
+                {{ pod.container_available_ports }}
+              </p>
+            </div>
+            <div class="rounded">
+              <p class="text-gray-700">
+                <strong>Port Bindings: </strong>
+                {{ pod.container_port_bindings }}
               </p>
             </div>
             <!-- Add more fields here if needed -->
@@ -39,7 +72,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
@@ -77,9 +109,9 @@ export default {
             },
             body: JSON.stringify({ container_id: containerId }),
           }
-        );
+        )
         if (response.ok) {
-          const data = await response.json();
+          const data = await response.json()
           this.$swal({
             toast: true,
             position: 'bottom-right',
@@ -88,9 +120,9 @@ export default {
             icon: 'success',
             title: 'Sucess',
             text: 'Pod Terminated Sucessfully',
-            showCancelButton: 'true'
-          });
-          this.fetchRunningPods();
+            showCancelButton: 'true',
+          })
+          this.fetchRunningPods()
         } else {
           this.$swal({
             toast: true,
@@ -100,12 +132,12 @@ export default {
             icon: 'error',
             title: 'Error',
             text: 'Something Went Wrong :(',
-            showCancelButton: 'true'
-          });
-          console.error('Error terminating pod:', response.statusText);
+            showCancelButton: 'true',
+          })
+          console.error('Error terminating pod:', response.statusText)
         }
       } catch (error) {
-        console.error('Error terminating pod:', error);
+        console.error('Error terminating pod:', error)
       }
     },
   },
