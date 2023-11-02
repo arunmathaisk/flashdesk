@@ -4,23 +4,25 @@
   >
     <div class="p-6">
       <div class="flex items-center">
-  <div class="flex-shrink-0 mr-4">
-    <img
-      src="../../public/logo.png"
-      alt="Logo"
-      class="mb-4 max-w-[50px] max-h-[50px]"
-    />
-  </div>
-  <div class="pl-6">
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-blue-600">
-      FlashDesk
-    </h1>
-  </div>
-</div>
+        <div class="flex-shrink-0 mr-4">
+          <img
+            src="../../public/logo.png"
+            alt="Logo"
+            class="mb-4 max-w-[50px] max-h-[50px]"
+          />
+        </div>
+        <div class="pl-6">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-semibold text-blue-600"
+          >
+            FlashDesk
+          </h1>
+        </div>
+      </div>
 
-      <hr class="border-t-2 border-blue-500 my-6" />
+      <hr class="border-t-2 border-blue-500 my-3" />
 
-      <ul class="space-y-2">
+      <ul class="space-y-1">
         <li v-for="item in menuItems" :key="item.id">
           <router-link
             :to="item.path"
@@ -32,10 +34,10 @@
           <!-- Line of distinction -->
         </li>
       </ul>
-      <hr class="border-t-2 border-blue-500 my-6" />
+      <hr class="border-t-2 border-blue-500 my-3" />
     </div>
 
-    <footer class="p-6 text-center">
+    <footer class="p-3 text-center">
       <p class="text-gray-600 text-lg">
         Welcome, <span class="font-semibold">{{ currentUser }} 😊</span>
       </p>
@@ -75,6 +77,7 @@ export default {
         { id: 5, title: 'Running Pods ', path: '/RunningPods' },
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
         { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
+        { id: 8, title: 'Event Logs', path: '/Logs' },
       ],
     }
   },

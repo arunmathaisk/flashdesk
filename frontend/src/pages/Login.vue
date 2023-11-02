@@ -8,6 +8,9 @@
       alt="App Logo"
       class="mx-auto block mb-4 w-32 h-32"
     />
+    <br>
+    <hr class="border-t-2 border-orange-500  my-3" />
+    <br>
     <form class="flex flex-col" @submit.prevent="">
       <Input
         v-model="email"
@@ -16,16 +19,19 @@
         placeholder="johndoe@mail.com"
         name="email"
         autocomplete="email"
-        :type="email !== 'Administrator' ? 'email' : 'text'" />
+        :type="email !== 'Administrator' ? 'email' : 'text'"
+      />
       <Input
         v-model="password"
         label="Password"
         type="password"
         placeholder="••••••••"
         name="password"
-        autocomplete="current-password" />
+        autocomplete="current-password"
+      />
 
       <ErrorMessage :message="errorMessage" class="mt-4" />
+      <br />
       <br>
       <Button
         :variant="'solid'"
@@ -40,7 +46,6 @@
       >
         Login
       </Button>
-
     </form>
   </LoginBox>
 </template>

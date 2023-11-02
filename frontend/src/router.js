@@ -64,6 +64,12 @@ const routes = [
     component: () => import('@/pages/Events.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/Logs',
+    name: 'Logss',
+    component: () => import('@/pages/Logs.vue'),
+    meta: { requiresAuth: true },
+  },
 ] 
 
 let router = createRouter({

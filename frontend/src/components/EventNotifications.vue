@@ -1,5 +1,5 @@
 <template>
-  <div class="md:w-3/4 p-6">
+  <div class="p-6">
     <h1 class="text-3xl font-semibold my-4 text-gray-800">Remote Queue Jobs</h1>
     <hr class="border-t-2 border-violet-500 my-6" />
   </div>
