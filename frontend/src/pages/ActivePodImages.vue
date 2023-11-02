@@ -12,24 +12,28 @@
           :key="index"
           class="border-2 border-green-600 bg-white shadow-lg p-6 m-6 rounded"
         >
-          <h3
-            class="text-xl font-bold text-gray-800"
-            style="display: grid; grid-template-columns: 1fr auto auto"
-          >
-            Image Tags : {{ image.tags }}
-            <button
-              @click="runPod(image.image_id)"
-              class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+          <div class="flex items-center justify-between mb-4">
+            <h3
+              class="text-xl font-bold text-gray-800"
+              style="display: grid; grid-template-columns: 1fr auto auto"
             >
-              Run
-            </button>
-            <button
-              @click="deleteImage(image.image_id)"
-              class="bg-red-600 text-white p-2 pl-4 pr-4 ml-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
-            >
-              Remove
-            </button>
-          </h3>
+              Image Tags : {{ image.tags }}
+            </h3>
+            <div class="flex">
+              <button
+                @click="runPod(image.image_id)"
+                class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+              >
+                Run
+              </button>
+              <button
+                @click="deleteImage(image.image_id)"
+                class="bg-red-600 text-white p-2 pl-4 pr-4 ml-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
           <hr class="border-t-2 border-green-600 my-6" />
           <div class="mt-4">
             <div class="pb-2 border-green-600">
@@ -68,7 +72,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
