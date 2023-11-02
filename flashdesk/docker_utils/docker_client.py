@@ -5,6 +5,7 @@ from datetime import datetime
 import humanize
 
 import frappe
+from frappe import _dict
 
 client = docker.from_env()
 
@@ -40,28 +41,49 @@ def check_if_docker_exists():
 
 
 def start_container_using_image_id(image_id):
-    image = client.images.get(image_id)
-    exposed_ports = {"6080/tcp":{},"56780/tcp":{}}
+    container_metadata = frappe.get_doc({
+        "doctype": "Container Metadata",
+        "container_id": "",
+        "container_short_id": "",
+        "image_id": "",
+        "available_ports": "",
+        "vnc_port": 6969696969,  # Default value in case available_ports has no element
+        "port_bindings": "",
+        "container_image_tags": "",
+        "container_labels": "", 
+    })
+
+    exposed_ports = {"6080/tcp": {}, "56780/tcp": {}}
     num_exposed_ports = len(exposed_ports)
     available_ports = find_available_ports(num_exposed_ports)
     port_bindings = {}
+
     # Iterate through exposed ports and assign them to available ports
     for index, (exposed_port, _) in enumerate(exposed_ports.items()):
         if index < len(available_ports):
             port_bindings[exposed_port] = available_ports[index]
+
     # Start the container with port bindings
     container = client.containers.run(
         image=image_id,
         detach=True,
         ports=port_bindings,
     )
-    metadata = {
-        "container_short_id": container.short_id,
-        "available_ports": available_ports,
-        "vnc_port": available_ports[0] if len(available_ports) > 1 else 6969696969,
-        "port_bindings": port_bindings,
-    }
-    return metadata
+
+    # Set the values in the document
+    container_metadata.container_id = container.id
+    container_metadata.container_short_id = container.short_id
+    container_metadata.image_id = image_id
+    container_metadata.available_ports = ",".join(map(str, available_ports))
+    container_metadata.vnc_port = available_ports[0] if len(available_ports) > 1 else 6969696969
+    container_metadata.port_bindings = str(port_bindings)
+    container_metadata.container_image_tags = str(container.image.tags)
+    container_metadata.container_labels = str(container.labels)
+
+    # Save the document
+    container_metadata.insert()
+
+    return container_metadata
 
 
 def kill_container_using_container_id(container_id):
@@ -95,6 +117,9 @@ def get_all_actively_running_docker_images():
         containers = client.containers.list()
         running_containers = []
         for container in containers:
+            fields = ["image_id","available_ports","vnc_port","port_bindings"]
+            filters = {"container_id":container.id}
+            result = frappe.db.get_value('Container Metadata',filters,fields,as_dict=True )
             running_container = {
                 "container_id": container.id,
                 "container_image_tags": container.image.tags,
@@ -102,6 +127,10 @@ def get_all_actively_running_docker_images():
                 "container_labels": container.labels,
                 "container_shortid": container.short_id,
                 "container_status": container.status,
+                "container_image_id" : result.image_id,
+                "container_available_ports" : result.available_ports,
+                "container_vnc_port" : result.vnc_port,
+                "container_port_bindings" : result.port_bindings,
             }
             running_containers.append(running_container)
         return running_containers

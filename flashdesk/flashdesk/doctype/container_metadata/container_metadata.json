@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:container_id",
  "creation": "2023-11-02 11:02:58.378684",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -8,10 +9,12 @@
   "container_id",
   "container_short_id",
   "image_id",
+  "container_image_tags",
   "available_ports",
   "vnc_port",
   "port_bindings",
-  "timestamp"
+  "timestamp",
+  "container_labels"
  ],
  "fields": [
   {
@@ -19,7 +22,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Container ID",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "container_short_id",
@@ -55,14 +59,25 @@
    "fieldtype": "Datetime",
    "label": "Timestamp",
    "read_only": 1
+  },
+  {
+   "fieldname": "container_image_tags",
+   "fieldtype": "Text",
+   "label": "Container Image Tags"
+  },
+  {
+   "fieldname": "container_labels",
+   "fieldtype": "Text",
+   "label": "Labels"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-02 11:26:15.328714",
+ "modified": "2023-11-02 12:52:18.157713",
  "modified_by": "Administrator",
  "module": "FlashDesk",
  "name": "Container Metadata",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
