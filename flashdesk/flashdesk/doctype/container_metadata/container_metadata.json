@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-11-02 11:02:58.378684",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "container_id",
+  "container_short_id",
+  "image_id",
+  "available_ports",
+  "vnc_port",
+  "port_bindings",
+  "timestamp"
+ ],
+ "fields": [
+  {
+   "fieldname": "container_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Container ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "container_short_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Container Short ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "available_ports",
+   "fieldtype": "Data",
+   "label": "Available Ports"
+  },
+  {
+   "fieldname": "vnc_port",
+   "fieldtype": "Int",
+   "label": "VNC Port"
+  },
+  {
+   "fieldname": "port_bindings",
+   "fieldtype": "Text",
+   "label": "Port Bindings"
+  },
+  {
+   "fieldname": "image_id",
+   "fieldtype": "Data",
+   "label": "Image ID",
+   "reqd": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "label": "Timestamp",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-11-02 11:26:15.328714",
+ "modified_by": "Administrator",
+ "module": "FlashDesk",
+ "name": "Container Metadata",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
