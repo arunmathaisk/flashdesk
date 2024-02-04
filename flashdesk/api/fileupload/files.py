@@ -10,6 +10,9 @@ ALLOWED_EXTENSIONS = {"tar", "zip"}
 def is_allowed_extension(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_extension(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() 
+
 @frappe.whitelist()
 def file_upload():  
     # Get request data
@@ -18,8 +21,13 @@ def file_upload():
     total_chunks = math.ceil(float(frappe.form_dict.get("total_chunks", 1)))
     file_name = frappe.form_dict.get("filename", "")
 
+    if frappe.request.headers.get('Referer').split("/")[-1] == "UploadPDFS":
+        ALLOWED_EXTENSIONS.add("pdf")
+    # print(get_extension(file_name))
     # Define the save path
     save_path = os.path.join(frappe.get_site_path("private/files"), secure_filename(file_name))
+
+
 
     # Check if the file extension is allowed
     if not is_allowed_extension(file_name):

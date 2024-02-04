@@ -69,7 +69,12 @@ const routes = [
     name: 'Logss',
     component: () => import('@/pages/Logs.vue'),
     meta: { requiresAuth: true },
-  },
+  },{
+    path:'/UploadPDFS',
+    name:'PDFS',
+    component:() => import('@/pages/Upload.vue'),
+    meta:{requiresAuth:true}
+  }
 ] 
 
 let router = createRouter({
