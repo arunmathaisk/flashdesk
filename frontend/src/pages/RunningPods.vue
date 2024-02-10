@@ -18,6 +18,12 @@
             </h3>
             <div class="flex">
               <button
+                @click="commit_pod(pod)"
+                class="bg-blue-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline focus:ring focus:border-blue-700"
+              >
+                Commit
+              </button>
+              <button
                 @click="openNewTab(pod)"
                 class="bg-teal-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
               >
@@ -96,12 +102,12 @@ export default {
   },
   methods: {
     openNewTab(pod) {
-      const currentProtocol = window.location.protocol;
-      const currentHostname = window.location.hostname;
+      const currentProtocol = window.location.protocol
+      const currentHostname = window.location.hostname
       window.open(
         `${currentProtocol}//${currentHostname}:${pod.container_vnc_port}/vnc.html`,
         '_blank'
-      );
+      )
     },
     async fetchRunningPods() {
       try {
@@ -154,6 +160,49 @@ export default {
         }
       } catch (error) {
         console.error('Error terminating pod:', error)
+      }
+    },
+    async commit_pod(pod) {
+      try {
+        const response = await fetch(
+          '/api/method/flashdesk.api.pods.running_pods.commit_pod',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ container_id: pod.container_id }),
+          }
+        )
+
+        if (response.ok) {
+          const data = await response.json()
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: 'Sucess',
+            text: 'Pod  Commited Sucessfully',
+            showCancelButton: 'true',
+          })
+          this.fetchRunningPods()
+        } else {
+          this.$swal({
+            toast: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'error',
+            title: 'Error',
+            text: 'Something Went Wrong with POD COMMITING :(',
+            showCancelButton: 'true',
+          })
+          console.error('Error terminating pod:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error fetching images:', error)
       }
     },
   },
