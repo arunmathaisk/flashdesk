@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bench init --frappe-branch develop bench
+bench init --frappe-branch version-15 bench
 
 cd bench
 
