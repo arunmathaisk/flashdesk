@@ -1,3 +1,4 @@
+import os
 import frappe
 from werkzeug.wrappers import Response
 from werkzeug.wsgi import wrap_file
@@ -81,3 +82,17 @@ def create_image_from_file():
     except Exception as e:
         frappe.throw(str(e))
 
+
+@frappe.whitelist(allow_guest=True)
+def create_file_from_image(image_name):
+    try:
+        tar_dir = frappe.get_site_path("private/files/tarfiles/")
+        full_save_path = os.path.join(tar_dir,secure_filename(filename))
+        check_file = os.path.isfile(full_save_path)
+        if check_file:
+            return {"status": "success", "message": "Tar File is already saved"}
+        else:
+            save_to_tar_file(name,full_save_path)
+        return "hello"
+    except Exception as e:
+        frappe.throw(str(e))
