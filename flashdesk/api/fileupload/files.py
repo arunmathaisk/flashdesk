@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from pathlib import Path
 import math
 
-ALLOWED_EXTENSIONS = {"tar", "zip"}
+ALLOWED_EXTENSIONS = {"tar", "zip","pdf"}
 
 def is_allowed_extension(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -21,9 +21,6 @@ def file_upload():
     total_chunks = math.ceil(float(frappe.form_dict.get("total_chunks", 1)))
     file_name = frappe.form_dict.get("filename", "")
 
-
-    if frappe.request.headers.get('Referer').split("/")[-2] == "UploadPDFS":
-        ALLOWED_EXTENSIONS.add("pdf")
 
     upload_dir = frappe.get_site_path("private/files/tarfiles") 
 
@@ -77,9 +74,14 @@ def file_upload():
 def file_delete():
     data = frappe.request.get_json()
     file_dir=frappe.get_site_path("private/files/tarfiles")
-    if frappe.request.headers.get('Referer').split("/")[-2] == "UploadPDFS":
+    if frappe.request.headers.get('Referer').split("/")[-1] == "UploadPDFS":
         file_dir=frappe.get_site_path("private/files/pdffiles")
     file_path = os.path.join(file_dir,data['name'])
     if os.path.isfile(file_path):
         os.unlink(file_path)
         return "deleted"
+
+
+@frappe.whitelist()
+def list_all_pdf_files():
+    return os.listdir(frappe.get_site_path("private/files/pdffiles"))
