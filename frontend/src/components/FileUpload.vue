@@ -122,7 +122,7 @@ export default {
             break;
           }else{
             this.toast(reply.message.type,reply.message.title,reply.message.body);
-            this.removeFile()
+            this.removeFileUI()
             break;
           }
         }
@@ -162,6 +162,10 @@ export default {
         body:JSON.stringify(file_json)
       })
       let reply = await response.json()
+      this.uploaded_files = null
+      this.no_of_chunks = null
+      this.upload_progress = null
+    },async removeFileUI() {
       this.uploaded_files = null
       this.no_of_chunks = null
       this.upload_progress = null

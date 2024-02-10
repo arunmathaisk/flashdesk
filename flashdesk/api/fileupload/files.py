@@ -5,10 +5,13 @@ from werkzeug.utils import secure_filename
 from pathlib import Path
 import math
 
-ALLOWED_EXTENSIONS = {"tar", "zip"}
+ALLOWED_EXTENSIONS = {"tar", "zip","pdf"}
 
 def is_allowed_extension(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_extension(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() 
 
 @frappe.whitelist()
 def file_upload():  
@@ -18,8 +21,16 @@ def file_upload():
     total_chunks = math.ceil(float(frappe.form_dict.get("total_chunks", 1)))
     file_name = frappe.form_dict.get("filename", "")
 
+
+    upload_dir = frappe.get_site_path("private/files/tarfiles") 
+
+    if get_extension(file_name) == "pdf":
+        upload_dir = frappe.get_site_path("private/files/pdffiles")
+    
     # Define the save path
-    save_path = os.path.join(frappe.get_site_path("private/files"), secure_filename(file_name))
+    save_path = os.path.join(upload_dir, secure_filename(file_name))
+
+
 
     # Check if the file extension is allowed
     if not is_allowed_extension(file_name):
@@ -31,12 +42,14 @@ def file_upload():
         reply_dict = {"type": "warning", "title":"File Exists","body":"We have it already"}
         return reply_dict
 
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    
     try:
         # Open the file in binary append mode and write the data chunk
         with open(save_path, "ab") as f:
             f.seek(int(frappe.form_dict.get("offset", 0)))
             f.write(data.stream.read())
-    except OSError:
+    except OSError:   
         reply_dict = {"type": "warning", "title":"Issue in Saving file","body":"Please reupload"}
         return reply_dict
 
@@ -60,7 +73,15 @@ def file_upload():
 @frappe.whitelist()
 def file_delete():
     data = frappe.request.get_json()
-    file_path = os.path.join(frappe.get_site_path("private/files"),data['name'])
+    file_dir=frappe.get_site_path("private/files/tarfiles")
+    if frappe.request.headers.get('Referer').split("/")[-1] == "UploadPDFS":
+        file_dir=frappe.get_site_path("private/files/pdffiles")
+    file_path = os.path.join(file_dir,data['name'])
     if os.path.isfile(file_path):
         os.unlink(file_path)
         return "deleted"
+
+
+@frappe.whitelist()
+def list_all_pdf_files():
+    return os.listdir(frappe.get_site_path("private/files/pdffiles"))

@@ -13,7 +13,7 @@
         </div>
         <div class="pl-6">
           <h1
-            class="text-4xl md:text-5xl lg:text-6xl font-semibold text-blue-600"
+            class="text-5xl md:text-5xl lg:text-6xl font-semibold text-blue-600"
           >
             FlashDesk
           </h1>
@@ -78,6 +78,7 @@ export default {
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
         { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
         { id: 8, title: 'Event Logs', path: '/Logs' },
+        {id: 9, title:'PDFs',path:'/UploadPDFS'}
       ],
     }
   },
