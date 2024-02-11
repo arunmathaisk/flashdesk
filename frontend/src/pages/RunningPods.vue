@@ -6,29 +6,57 @@
         Currently Running Pods
       </h1>
       <hr class="border-t-2 border-teal-400 my-6" />
-      <div v-if="modal_close" class="flex flex-col items-center p-2 border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded w-fit absolute top-4 left-3">
+      <div
+        v-if="modal_close"
+        class="flex flex-col items-center p-2 border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded w-fit fixed inset-0 h-auto max-w-xl mx-auto my-auto z-50"
+      >
         <h1>New Image Details</h1>
         <div class="flex flex-col">
           <div class="flex items-center">
-            <label for="text-gray-900">Name/Tag</label>
-            <input type="text" v-model="container_params.tag" class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4">
+            <label for="text-gray-900">Image Name</label>
+            <input
+              type="text"
+              v-model="container_params.image_name"
+              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+            />
+          </div>
+          <div class="flex items-center">
+            <label for="text-gray-900">Tag</label>
+            <input
+              type="text"
+              v-model="container_params.tag"
+              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+            />
           </div>
           <div class="flex items-center">
             <label for="text-gray-900">Message</label>
-            <input type="text" v-model="container_params.message" class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4">
+            <input
+              type="text"
+              v-model="container_params.message"
+              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+            />
           </div>
-          <div class="flex gap-2 items-center" @click="toggleActive = !toggleActive">
+          <div
+            class="flex gap-2 items-center"
+            @click="toggleActive = !toggleActive"
+          >
             <label for="text-gray-900">Pause Container</label>
-            <div class="w-16 h-10 flex items-center bg-gray-300 rounded-full p-1 duration-300 ease-in-out" :class="{ 'bg-green-500': toggleActive}">
-              <div class="bg-white w-8 h-8 rounded-full shadow-md transform duration-300 ease-in-out" :class="{ 'translate-x-6': toggleActive,}"></div>
+            <div
+              class="w-16 h-10 flex items-center bg-gray-300 rounded-full p-1 duration-300 ease-in-out"
+              :class="{ 'bg-green-500': toggleActive }"
+            >
+              <div
+                class="bg-white w-8 h-8 rounded-full shadow-md transform duration-300 ease-in-out"
+                :class="{ 'translate-x-6': toggleActive }"
+              ></div>
             </div>
-        </div>
-        <button
-                @click="commit_pod()"
-                class="bg-blue-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline focus:ring focus:border-blue-700 m-4"
-              >
-                Commit
-        </button>    
+          </div>
+          <button
+            @click="commit_pod()"
+            class="bg-blue-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline focus:ring focus:border-blue-700 m-4"
+          >
+            Commit
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-1">
@@ -120,14 +148,15 @@ export default {
   data() {
     return {
       runningPods: [],
-      modal_close:false,
-      toggleActive:false,
-      selected_pod:"",
+      modal_close: false,
+      toggleActive: false,
+      selected_pod: '',
       container_params: {
-      tag: "",
-      message: "",
-      pause: this.toggleActive
-    }
+        image_name: '',
+        tag: '',
+        message: '',
+        pause: this.toggleActive,
+      },
     }
   },
   mounted() {
@@ -194,16 +223,16 @@ export default {
       } catch (error) {
         console.error('Error terminating pod:', error)
       }
-    },open_modal(pod){
+    },
+    open_modal(pod) {
       this.selected_pod = pod
-      console.log(this.selected_pod.container_id)
       this.modal_close = true
-    },close_modal(){
+    },
+    close_modal() {
       this.modal_close = false
     },
     async commit_pod() {
       try {
-
         const response = await fetch(
           '/api/method/flashdesk.api.pods.running_pods.commit_pod',
           {
@@ -211,7 +240,10 @@ export default {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ container_id: this.selected_pod.container_id,container_params:this.container_params}),
+            body: JSON.stringify({
+              container_id: this.selected_pod.container_id,
+              container_params: this.container_params,
+            }),
           }
         )
 
