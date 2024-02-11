@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-semibold mb-6 text-gray-800">
       {{ form_label }}
     </h1>
-    <hr class="border-t-2 border-lime-400" />
+    <hr class="border-t-2 border-amber-400" />
     <div class="w-full p-8">
       <div v-for="detail in form_details" class="p-4">
         <div v-if="detail.type == 'FileUpload'">
@@ -44,7 +44,7 @@
       </div>
       <div>
         <button
-          class="bg-lime-500 text-white p-4 m-4 hover:bg-lime-600 focus:outline focus:ring focus:border-lime-700"
+          class="bg-amber-300  p-4 m-4 hover:bg-amber-600 focus:outline focus:ring focus:border-amber-700"
           :disabled=disabled
           @click="validateform"
         >

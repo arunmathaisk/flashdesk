@@ -3,6 +3,7 @@ from werkzeug.wrappers import Response
 from werkzeug.wsgi import wrap_file
 from werkzeug.utils import secure_filename
 from flashdesk.docker_utils.docker_client import *
+from flashdesk.docker_utils.docker_low_level_client import *
 
 @frappe.whitelist()
 def get_all_actively_running_pod_images():
@@ -21,4 +22,6 @@ def get_all_terminated_pods():
         return get_terminated_containers()
 
 
-    
+@frappe.whitelist(allow_guest=True)
+def commit_pod(container_id,container_params):
+        return save_container(container_id,container_params)

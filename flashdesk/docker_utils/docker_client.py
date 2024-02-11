@@ -211,4 +211,9 @@ def docker_events():
         # frappe.publish_realtime('docker_events', data={'event': event})
 
 
-
+def save_to_tar_file(name,file_path):
+    client=images.get(name)
+    f = open(file_path, 'wb')
+    for chunk in image.save():
+        f.write(chunk)
+    f.close()
