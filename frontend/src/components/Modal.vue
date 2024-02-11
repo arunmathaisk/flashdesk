@@ -1,65 +1,90 @@
 <template>
-          <div
-        v-if="modal_close"
-        class="flex flex-col p-2 border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded w-fit fixed inset-0 max-w-xl mx-auto my-auto z-50 h-fit"
-      >
-        <h1>New Image Details</h1>
-        <div class="flex flex-col">
-          <div class="flex items-center">
-            <label for="text-gray-900">Image Name</label>
+  <div
+    v-if="modal_close"
+    class="flex items-center justify-center fixed inset-0 bg-gray-900 bg-opacity-50 z-50"
+  >
+    <div
+      class="bg-white shadow-lg rounded-lg overflow-hidden w-auto max-w-md mx-auto my-8"
+    >
+      <div class="p-6">
+        <h1 class="text-xl font-semibold text-gray-900 mb-4">
+          Save Running Pod As Image
+        </h1>
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <label for="image_name" class="text-gray-700 font-medium"
+              >Image Name</label
+            >
             <input
               type="text"
               v-model="container_params.image_name"
-              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+              @input="
+                container_params.image_name = $event.target.value.toLowerCase()
+              "
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              placeholder="Enter image name"
             />
           </div>
-          <div class="flex items-center ">
-            <label for="text-gray-900">Tag</label>
+          <div class="flex flex-col">
+            <label for="tag" class="text-gray-700 font-medium">Tag</label>
             <input
               type="text"
               v-model="container_params.tag"
-              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              placeholder="Enter tag"
             />
           </div>
-          <div class="flex items-center">
-            <label for="text-gray-900">Message</label>
+          <div class="flex flex-col">
+            <label for="message" class="text-gray-700 font-medium"
+              >Message</label
+            >
             <input
               type="text"
               v-model="container_params.message"
-              class="block w-full font-medium rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 m-4"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              placeholder="Enter message"
             />
           </div>
-          <div class="flex items-center justify-evenly">
-            <input checked id="checked-checkbox" type="checkbox" v-model="container_params.pause" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checked-checkbox" class="text-gray-900 ">Pause Container</label>
+          <div class="flex items-center mt-4">
+            <input
+              id="checked-checkbox"
+              type="checkbox"
+              v-model="container_params.pause"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="checked-checkbox" class="ml-2 text-gray-900"
+              >Pause Container</label
+            >
           </div>
           <button
             @click="commit_pod()"
-            class="bg-blue-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline focus:ring focus:border-blue-700 m-4"
+            class="w-full bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-700 py-2 mt-4"
           >
             Commit
           </button>
         </div>
       </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name:"Modal",
-    props:['modal_close','selected_pod'],
-    data() {
+  name: 'Modal',
+  props: ['modal_close', 'selected_pod'],
+  data() {
     return {
-        container_params: {
-            image_name: '',
-            tag: '',
-            message: '',
-            pause: true,
-        },
-        }
-    },
-    methods:{
-        async commit_pod() {
-        try {
+      container_params: {
+        image_name: '',
+        tag: '',
+        message: '',
+        pause: true,
+      },
+    }
+  },
+  methods: {
+    async commit_pod() {
+      try {
         const response = await fetch(
           '/api/method/flashdesk.api.pods.running_pods.commit_pod',
           {
@@ -86,7 +111,7 @@ export default {
             text: 'Pod  Commited Sucessfully',
             showCancelButton: 'true',
           })
-          this.$emit('close_modal',false);
+          this.$emit('close_modal', false)
           this.fetchRunningPods()
         } else {
           this.$swal({
@@ -104,8 +129,8 @@ export default {
       } catch (error) {
         console.error('Error fetching images:', error)
       }
-    }, 
     },
-    emits: ['close_modal'],
+  },
+  emits: ['close_modal'],
 }
 </script>
