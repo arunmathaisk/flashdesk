@@ -23,6 +23,5 @@ def get_all_terminated_pods():
 
 
 @frappe.whitelist(allow_guest=True)
-def commit_pod(container_id,container_params=None):
-        return container_id
-        # return save_container(container_id,container_params)
+def commit_pod(container_id,container_params):
+        return save_container(container_id,container_params)

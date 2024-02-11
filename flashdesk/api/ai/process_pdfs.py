@@ -19,7 +19,7 @@ def create_vector_db():
     pdf_dir = frappe.get_site_path("private/files/pdffiles/")
     loader = PyPDFDirectoryLoader(pdf_dir)
     documents = loader.load()
-    base_url = "http://192.168.192.194:11434"
+    base_url = "https://e6f9-103-123-226-98.ngrok-free.app"
     print(f"Processed {len(documents)} pdf files")
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=200)
     texts=text_splitter.split_documents(documents)
@@ -28,7 +28,7 @@ def create_vector_db():
 
 def fetch_info(query):
     print("sadasd")
-    base_url = "http://192.168.192.194:11434"
+    base_url = "https://e6f9-103-123-226-98.ngrok-free.app"
     ollama = Ollama(base_url=base_url,model="llama2")
     oembed = OllamaEmbeddings(base_url=base_url, model="llama2")
     vectordb = Chroma(persist_directory="/home/soham/chroma", embedding_function=oembed)
