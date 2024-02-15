@@ -10,6 +10,9 @@ dynamic = ["version"]
 dependencies = [
     "docker",
     "humanize",
+    "langchain_community",
+    "lanchain",
+    "chromadb"
 ]
 
 [build-system]
