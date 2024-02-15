@@ -63,7 +63,7 @@ app_license = "MIT"
 # ------------
 
 # before_install = "flashdesk.install.before_install"
-# after_install = "flashdesk.install.after_install"
+after_install = "flashdesk.install.after_install"
 
 # Uninstallation
 # ------------
