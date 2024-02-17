@@ -23,7 +23,7 @@ def create_vector_db():
     base_url = "http://192.168.192.194:11434"
     print(f"Processed {len(documents)} pdf files")
     chromadb_path = frappe.get_site_path("private/files/chromadb/")
-    os.makedirs(os.path.dirname(chromadb_path), exist_ok=True)
+    
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=200)
 

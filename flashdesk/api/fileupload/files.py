@@ -22,7 +22,7 @@ def file_upload():
     file_name = frappe.form_dict.get("filename", "")
 
 
-    upload_dir = frappe.get_site_path("private/files/tarfiles") 
+    upload_dir = frappe.get_site_path("private/files/tarfiles/uploaded") 
 
     if get_extension(file_name) == "pdf":
         upload_dir = frappe.get_site_path("private/files/pdffiles")
@@ -42,7 +42,6 @@ def file_upload():
         reply_dict = {"type": "warning", "title":"File Exists","body":"We have it already"}
         return reply_dict
 
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     
     try:
         # Open the file in binary append mode and write the data chunk
@@ -73,7 +72,7 @@ def file_upload():
 @frappe.whitelist()
 def file_delete():
     data = frappe.request.get_json()
-    file_dir=frappe.get_site_path("private/files/tarfiles")
+    file_dir=frappe.get_site_path("private/files/tarfiles/uploaded")
     if frappe.request.headers.get('Referer').split("/")[-1] == "UploadPDFS":
         file_dir=frappe.get_site_path("private/files/pdffiles")
     file_path = os.path.join(file_dir,data['name'])

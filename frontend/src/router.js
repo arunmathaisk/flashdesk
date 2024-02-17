@@ -74,6 +74,11 @@ const routes = [
     name:'PDFS',
     component:() => import('@/pages/Upload.vue'),
     meta:{requiresAuth:true}
+  },{
+      path:'/SavedImages',
+      name:'SavedImages',
+      component:() => import('@/pages/SavedImages.vue'),
+      meta:{requiresAuth:true}
   }
 ] 
 

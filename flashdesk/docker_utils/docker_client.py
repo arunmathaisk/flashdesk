@@ -139,6 +139,7 @@ def get_all_actively_running_docker_images():
             fields = ["image_id","available_ports","vnc_port","port_bindings"]
             filters = {"container_id":container.id}
             result = frappe.db.get_value('Container Metadata',filters,fields,as_dict=True )
+            print(container)
             running_container = {
                 "container_id": container.id,
                 "container_image_tags": container.image.tags,
@@ -211,9 +212,12 @@ def docker_events():
         # frappe.publish_realtime('docker_events', data={'event': event})
 
 
-def save_to_tar_file(name,file_path):
-    client=images.get(name)
+def save_to_tar_file(image_id,file_path):
+    saved_image = client.images.get(image_id)
     f = open(file_path, 'wb')
-    for chunk in image.save():
+    for chunk in saved_image.save():
         f.write(chunk)
     f.close()
+
+def get_image_name_from_id(image_id):
+    return client.images.get(image_id).attrs['RepoTags'][0]

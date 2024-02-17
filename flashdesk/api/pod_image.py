@@ -83,16 +83,41 @@ def create_image_from_file():
         frappe.throw(str(e))
 
 
-@frappe.whitelist(allow_guest=True)
-def create_file_from_image(image_name):
+@frappe.whitelist()
+def create_file_from_image(image_id):
     try:
-        tar_dir = frappe.get_site_path("private/files/tarfiles/")
+        tar_dir = frappe.get_site_path("private/files/tarfiles/saved")
+        filename = get_image_name_from_id(image_id) + ".tar"
         full_save_path = os.path.join(tar_dir,secure_filename(filename))
         check_file = os.path.isfile(full_save_path)
         if check_file:
-            return {"status": "success", "message": "Tar File is already saved"}
+            return {"status": "info", "message": "Tar File is already saved check Saved Images Page"}
         else:
-            save_to_tar_file(name,full_save_path)
-        return "hello"
+            save_to_tar_file(image_id,full_save_path)
+            return {"status": "success", "message": "Tar File saved"}
     except Exception as e:
         frappe.throw(str(e))
+
+@frappe.whitelist()
+def list_all_tar_files():
+    return os.listdir(frappe.get_site_path("private/files/tarfiles/saved/"))
+
+
+@frappe.whitelist()
+def saved_file_delete():
+    data = frappe.request.get_json()
+    file_dir=frappe.get_site_path("private/files/tarfiles/saved")
+    file_path = os.path.join(file_dir,data['name'])
+    if os.path.isfile(file_path):
+        os.unlink(file_path)
+        return "deleted"
+
+@frappe.whitelist()
+def download_tar_file(name):
+    tar_dir = frappe.get_site_path("private/files/tarfiles/saved")
+    frappe.local.response.filename = name
+    file_path = os.path.join(tar_dir,name)
+    with open(file_path, "rb") as fileobj:
+	    filedata = fileobj.read()
+    frappe.local.response.filecontent = filedata
+    frappe.local.response.type = "download"
