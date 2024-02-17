@@ -72,7 +72,7 @@ def file_upload():
 @frappe.whitelist()
 def file_delete():
     data = frappe.request.get_json()
-    file_dir=frappe.get_site_path("private/files/tarfiles")
+    file_dir=frappe.get_site_path("private/files/tarfiles/uploaded")
     if frappe.request.headers.get('Referer').split("/")[-1] == "UploadPDFS":
         file_dir=frappe.get_site_path("private/files/pdffiles")
     file_path = os.path.join(file_dir,data['name'])

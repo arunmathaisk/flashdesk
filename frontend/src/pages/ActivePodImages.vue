@@ -19,7 +19,13 @@
             >
               Image Tags : {{ image.tags }}
             </h3>
-            <div class="flex">
+            <div class="flex gap-4">
+              <button
+                @click="savePod(image.image_id)"
+                class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+              >
+                Save
+              </button>
               <button
                 @click="runPod(image.image_id)"
                 class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
@@ -184,7 +190,30 @@ export default {
       } catch (error) {
         console.error('Error terminating pod image :', error)
       }
-    },
+    },async savePod(image_id){
+      try {
+        const response = await fetch(
+          '/api/method/flashdesk.api.pod_image.create_file_from_image',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image_id: image_id }),
+          }
+        )
+        if (response.ok) {
+          const data = await response.json()
+          this.$toast(data.message.status,"Saving to tar file",data.message.message);
+          this.fetchActiveImages()
+        } else {
+          this.$toast(data.message.status,"Saving to tar file",data.message.message);
+          console.error('Error saving pod image:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error saving pod image :', error)
+      }
+    }
   },
   components: { SideNavbar },
 }
