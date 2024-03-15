@@ -78,7 +78,8 @@ export default {
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
         { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
         { id: 8, title: 'Event Logs', path: '/Logs' },
-        {id: 9, title:'PDFs',path:'/UploadPDFS'}
+        {id: 9, title:'PDFs',path:'/UploadPDFS'},
+        {id: 10, title:'Saved Images',path:'/SavedImages'}
       ],
     }
   },

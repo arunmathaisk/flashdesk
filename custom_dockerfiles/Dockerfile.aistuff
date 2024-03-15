@@ -1,0 +1,7 @@
+FROM nvidia/cuda:11.0.3-base-ubuntu18.04
+RUN apt-get update
+RUN apt-get install curl -y
+RUN curl https://ollama.ai/install.sh | sh
+EXPOSE 11434 4040
+ENV OLLAMA_HOST 0.0.0.0
+ENTRYPOINT ["ollama","serve"]

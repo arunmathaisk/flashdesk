@@ -42,6 +42,10 @@ sleep 1 & \
 /opt/noVNC/utils/novnc_proxy --vnc localhost:5999 2>&1 | sed "s/^/[noVNC     ] /"'\
 >/entry.sh
 
+
+COPY vnc /etc/init.d/vnc
+
+RUN chmod +x /etc/init.d/vnc
 USER alpine
 
 ENTRYPOINT [ "/bin/bash", "/entry.sh" ]
