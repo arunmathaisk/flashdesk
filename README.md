@@ -2,16 +2,18 @@
 
 <img src="assets/logo.png" alt="FlashDesk Logo" width="200"/>
 
-## Screenshot
-<img src="assets/Screenshot from 2023-10-08 15-25-24.png" alt="FlashDesk Screen" width="800"/>
-
-<img src="assets/Screenshot from 2023-10-08 15-31-26.png" alt="FlashDScreenshot from 2023-10-08 15-29-49.pngesk Screen" width="800"/>
-
-<img src="assets/Screenshot from 2023-10-08 15-29-49.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/7.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/3.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/1.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/5.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/4.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/6.png" alt="FlashDesk Screen" width="800"/>
+<img src="assets/2.png" alt="FlashDesk Screen" width="800"/>
 
 ## Installation
 <!-- TOC -->
- - [Local Setup](#local)
+
+- [Local Setup](#local)
 - [Docker Setup ](#docker)
  
 <!-- /TOC -->
