@@ -53,7 +53,7 @@ def start_container_using_image_id(image_id):
         "container_labels": "", 
     })
 
-    exposed_ports = {"6080/tcp": {}, "56780/tcp": {}}
+    exposed_ports = {"6901/tcp": {}, "6801/tcp": {}}
     num_exposed_ports = len(exposed_ports)
     available_ports = find_available_ports(num_exposed_ports)
     port_bindings = {}
