@@ -24,7 +24,7 @@ export default {
     return {
       formObj: [
         {
-          label: 'Image Name',
+          label: 'Image Name :',
           type: 'text',
           name: 'image_name',
           value: '',
@@ -32,7 +32,7 @@ export default {
           defaultRequired:null
         },
         {
-          label: 'Image Description',
+          label: 'Image Description :',
           type: 'text',
           name: 'image_description',
           value: '',
@@ -40,21 +40,21 @@ export default {
           defaultRequired:null
         },
         {
-          type: 'FileUpload',
+          type: 'FileUpload :',
           name: 'image_file',
           value: '',
           isRequired: true,
           defaultRequired:null
         },
         {
-          label: 'Tags',
+          label: 'Tags :',
           type: 'text',
           name: 'tags',
           value: '',
           isRequired: null,
         },
         {
-          label: 'Status',
+          label: 'Status :',
           type: 'select',
           name: 'status',
           options: ['Draft', 'Published', 'Deprecated'],

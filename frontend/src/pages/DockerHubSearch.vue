@@ -1,69 +1,52 @@
 <template>
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
-    <div class="flex-grow p-8 bg-white-200 overflow-auto">
-      <h1 class="text-3xl font-semibold mb-6 text-gray-800">
-        Search Docker Hub
-      </h1>
-      <hr class="border-t-2 border-violet-400 my-6" />
-      <div class="p-4 flex items-center">
-        <input
-          type="text"
+    <div class="flex-grow p-8 overflow-auto">
+      <h1 class="text-xl font-semibold mb-6 text-black">Search Docker Hub</h1>
+      <hr class="border-t-2 border-black my-6" />
+      <div class="p-4 flex items-center mb-3">
+        <TextInput
+          :type="'text'"
           placeholder="Search..."
-          class="p-2 border border-violet-500 focus:ring-violet-300 flex-grow rounded-md"
           v-model="searchInput"
           @input="fetchDockerHubImages"
+          class="flex-grow"
+          size="md"
         />
         <div class="pl-4">
-          <button
-            class="bg-violet-500 text-white p-2 rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-700"
+          <Button
+            size="md"
+            class="bg-black text-white p-2 rounded hover:bg-gray-800"
+            @click="fetchDockerHubImages"
           >
             Search
-          </button>
+          </Button>
         </div>
       </div>
-      <div class="grid grid-cols-1">
+      <div class="grid grid-cols-1 gap-3">
         <div
           v-for="(image, index) in dockerImages"
           :key="index"
-          class="border-2 border-violet-400 bg-white shadow-lg p-6 m-6 rounded-md"
+          class="border-2 border-black bg-white shadow-lg p-6 rounded-md"
         >
-          <h3
-            class="text-xl font-bold text-gray-800 rounded-md"
-            style="display: grid; grid-template-columns: 1fr auto"
-          >
-            Image Name : {{ image.name }}
-            <button
-              class="bg-violet-500 text-white p-2 pl-4 pr-4 rounded-md hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-700"
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-md font-bold text-black">
+              Image Name: {{ image.name }}
+            </h3>
+            <Button
+            size="sm"
+              class="bg-black text-white p-2 pl-4 pr-4 rounded hover:bg-gray-800"
               @click="docker_pull(image.name)"
             >
               Pull
-            </button>
-          </h3>
-          <hr class="border-t-2 border-violet-400 my-6 rounded-md" />
-          <div class="mt-4">
-            <div class="pb-2 mt-2 rounded-md">
-              <p class="text-gray-700">
-                <strong>Official :</strong> {{ image.is_official }}
-              </p>
-            </div>
-            <div class="pb-2 mt-2 rounded-md">
-              <p class="text-gray-700">
-                <strong>Automated :</strong> {{ image.is_automated }}
-              </p>
-            </div>
-            <div class="pb-2 mt-2 rounded-md">
-              <p class="text-gray-700">
-                <strong>Star Count:</strong> {{ image.star_count }}
-              </p>
-            </div>
-
-            <div class="mt-2 rounded-md">
-              <p class="text-gray-700">
-                <strong>Description :</strong> {{ image.description }}
-              </p>
-            </div>
-            <!-- Add more fields here if needed -->
+            </Button>
+          </div>
+          <hr class="border-t border-black my-4" />
+          <div>
+            <p class="text-gray-700">Official: {{ image.is_official }}</p>
+            <p class="text-gray-700">Automated: {{ image.is_automated }}</p>
+            <p class="text-gray-700">Star Count: {{ image.star_count }}</p>
+            <p class="text-gray-700">Description: {{ image.description }}</p>
           </div>
         </div>
       </div>
@@ -71,14 +54,17 @@
   </div>
 </template>
 
-
 <script>
+import { TextInput, Button } from 'frappe-ui'
 import SideNavbar from '@/components/SideNavbar.vue'
-import UserDetails from '@/components/UserDetails.vue'
-import UserDisclaimer from '@/components/UserDisclaimer.vue'
 
 export default {
   name: 'DockerHubSearch',
+  components: {
+    SideNavbar,
+    TextInput,
+    Button,
+  },
   data() {
     return {
       searchInput: '',
@@ -116,9 +102,8 @@ export default {
             showConfirmButton: false,
             timer: 3000,
             icon: 'success',
-            title: 'Sucess',
-            text: 'Image pull has started in the backhround. Check events for more information.',
-            showCancelButton: 'true',
+            title: 'Success',
+            text: 'Image pull has started in the background. Check events for more information.',
           })
         } else {
           const data = await response.json()
@@ -130,18 +115,12 @@ export default {
             icon: 'error',
             title: 'Error',
             text: data.messages,
-            showCancelButton: 'true',
           })
         }
       } catch (error) {
         console.error('Error pulling images:', error)
       }
     },
-  },
-  components: {
-    SideNavbar,
-    UserDetails,
-    UserDisclaimer,
   },
 }
 </script>
