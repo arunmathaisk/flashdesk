@@ -10,7 +10,7 @@
           placeholder="Search..."
           v-model="searchInput"
           @input="fetchDockerHubImages"
-          class="flex-grow"
+          class="flex-grow border-2 border-black rounded-md"
           size="md"
         />
         <div class="pl-4">
