@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center bg-gray-50">
+  <div class="flex flex-col items-center border-r-2 border-black">
     <!-- Flex container for alignment -->
     <Avatar
       :shape="'square'"

@@ -16,14 +16,15 @@
         <div class="pl-4">
           <Button
             size="md"
-            class="bg-black text-white p-2 rounded hover:bg-gray-800"
+            :variant="'solid'"
+            theme="gray"
             @click="fetchDockerHubImages"
           >
             Search
           </Button>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-3">
+      <div class="grid grid-cols-3 gap-3">
         <div
           v-for="(image, index) in dockerImages"
           :key="index"
@@ -34,8 +35,9 @@
               Image Name: {{ image.name }}
             </h3>
             <Button
-            size="sm"
-              class="bg-black text-white p-2 pl-4 pr-4 rounded hover:bg-gray-800"
+              size="sm"
+              :variant="'solid'"
+              theme="gray"
               @click="docker_pull(image.name)"
             >
               Pull
@@ -53,6 +55,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { TextInput, Button } from 'frappe-ui'
