@@ -1,60 +1,65 @@
 <template>
-  <nav
-    class="h-full w-1/5 bg-red flex-none shadow-lg rounded-none overflow-y-auto relative"
-  >
-    <div class="p-6">
-      <div class="flex items-center">
-        <div class="flex-shrink-0 mr-4">
-          <img
-            src="../../public/logo.png"
-            alt="Logo"
-            class="mb-4 max-w-[50px] max-h-[50px]"
-          />
-        </div>
-        <div class="pl-6">
-          <h1
-            class="text-5xl md:text-5xl lg:text-6xl font-semibold text-blue-600"
-          >
-            FlashDesk
-          </h1>
-        </div>
-      </div>
+  <div class="flex flex-col items-center bg-gray-50">
+    <!-- Flex container for alignment -->
+    <Avatar
+      :shape="'square'"
+      image="../../public/logo.png"
+      size="3xl"
+      class="m-3 mt-5"
+    />
+    <span class="text-md font-medium">Flashdesk</span>
+    <!-- Label next to the avatar -->
 
-      <hr class="border-t-2 border-blue-500 my-3" />
-
-      <ul class="space-y-1">
+    <div class="flex flex-col items-center m-2">
+      <ul>
         <li v-for="item in menuItems" :key="item.id">
-          <router-link
-            :to="item.path"
-            class="block py-3 px-4 text-gray-800 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 {{ activeMenuItem(item.path) }}"
-          >
-            {{ item.title }}
-          </router-link>
-          <div class="h-px bg-sky-500"></div>
-          <!-- Line of distinction -->
+          <div class="m-2">
+            <!-- Using router-link as a wrapper for Button to navigate -->
+            <router-link :to="item.path" tag="div" class="block">
+              <Button
+                class="sm:w-32 md:w-48"
+                theme="white"
+                :variant="'subtle'"
+                size="md"
+                :loading="false"
+                :loadingText="null"
+                :disabled="false"
+                :link="null"
+                style="text-align: left; justify-content: flex-start"
+              >
+                {{ item.title }}
+              </Button>
+            </router-link>
+          </div>
         </li>
       </ul>
-      <hr class="border-t-2 border-blue-500 my-3" />
     </div>
 
-    <footer class="p-3 text-center">
-      <p class="text-gray-600 text-lg">
-        Welcome, <span class="font-semibold">{{ currentUser }} 😊</span>
+    <div class="text-center mt-5 m-3">
+      <p class="text-black-600 text-md whitespace-nowrap">
+        Welcome <span class="font-semibold">{{ currentUser }} 😊</span>
       </p>
-      <router-link
-        to="/logout"
-        class="block mt-6 px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-      >
-        Logout
-      </router-link>
-    </footer>
 
-    <!-- Vertical Line -->
-    <div class="absolute top-0 right-0 h-full w-0.5 bg-blue-500"></div>
-  </nav>
+      <router-link to="/logout" class="block" tag="div">
+        <Button
+          class="sm:w-32 md:w-48 m-5"
+          :variant="'solid'"
+          theme="gray"
+          size="md"
+          :loading="false"
+          :loadingText="null"
+          :disabled="false"
+          :link="null"
+        >
+          Logout
+        </Button>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
+import { TextInput, Avatar, Button } from 'frappe-ui'
 import { useUserStore } from '@/stores/user.js'
 import { FeatherIcon } from 'vue-feather-icons'
 
@@ -67,6 +72,11 @@ export default {
       return user.full_name
     },
   },
+  components: {
+    TextInput,
+    Avatar,
+    Button,
+  },
   data() {
     return {
       menuItems: [
@@ -78,8 +88,8 @@ export default {
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
         { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
         { id: 8, title: 'Event Logs', path: '/Logs' },
-        {id: 9, title:'PDFs',path:'/UploadPDFS'},
-        {id: 10, title:'Saved Images',path:'/SavedImages'}
+        { id: 9, title: 'PDFs', path: '/UploadPDFS' },
+        { id: 10, title: 'Saved Images', path: '/SavedImages' },
       ],
     }
   },
