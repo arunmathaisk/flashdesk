@@ -89,7 +89,7 @@
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
-import { Button, ListView } from 'frappe-ui'
+import { Button} from 'frappe-ui'
 export default {
   name: 'ActivePodImages',
   data() {

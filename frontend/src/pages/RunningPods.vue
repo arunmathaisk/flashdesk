@@ -2,52 +2,64 @@
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-white-200 overflow-auto">
-      <h1 class="text-3xl font-semibold mb-6 text-gray-800">
+      <h1 class="text-xl font-semibold mb-6 text-gray-800">
         Currently Running Pods
       </h1>
-      <hr class="border-t-2 border-teal-400 my-6" />
-      <Modal :modal_close="modal_visible" :selected_pod="selected_pod" @close_modal="close_modal"/>
-      <div class="grid grid-cols-1">
+      <hr class="border-t-2 border-black my-6" />
+      <Modal
+        :modal_close="modal_visible"
+        :selected_pod="selected_pod"
+        @close_modal="close_modal"
+      />
+      <div class="grid grid-cols-2">
         <div
           v-for="(pod, index) in runningPods"
           :key="index"
-          class="border-2 border-teal-500 bg-white shadow-lg p-6 m-6 rounded"
+          class="border-2 border-black bg-white shadow-lg p-3 m-3 rounded"
         >
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-gray-800">
-              Container Name: {{ pod.container_name }}
-            </h3>
+          <div class="flex items-center justify-between">
+            <h4 class="text-md text-gray-800">
+              <span class="font-bold"> Container Name: </span>
+              {{ pod.container_name }}
+            </h4>
             <div class="flex gap-4">
-              <button
+              <Button
                 @click="open_modal(pod)"
-                class="bg-blue-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline focus:ring focus:border-blue-700"
+                size="md"
+                variant="solid"
+                theme="gray"
               >
                 Commit
-              </button>
-              <button
+              </Button>
+              <Button
                 @click="openNewTab(pod)"
-                class="bg-teal-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-teal-600 focus:outline focus:ring focus:border-teal-700"
+                size="md"
+                variant="solid"
+                theme="gray"
               >
                 View
-              </button>
-              <button
+              </Button>
+              <Button
                 @click="terminatePod(pod.container_id)"
-                class="bg-red-500 text-white ml-2 mr-2 p-2 pl-4 pr-4 rounded-md hover:bg-red-600 focus:outline focus:ring focus:border-red-700 ml-4"
+                size="md"
+                variant="solid"
+                theme="gray"
               >
                 Terminate
-              </button>
+              </Button>
             </div>
           </div>
-          <hr class="border-t-2 border-teal-400 my-6 rounded" />
-          <div class="mt-4 grid grid-cols-2 gap-4">
+          <hr class="border-t-2 border-black my-6 rounded" />
+          <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
             <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Short ID: </strong> {{ pod.container_shortid }}
+                <span class="font-bold">Short ID:</span>
+                {{ pod.container_shortid }}
               </p>
             </div>
             <div class="rounded">
               <p class="text-gray-700">
-                <strong>Status: &nbsp</strong>
+                <span class="font-bold">Status:</span> &nbsp
                 <span
                   class="h-3 w-3 rounded-full inline-block mr-2"
                   :class="{
@@ -60,23 +72,25 @@
             </div>
             <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Tags: </strong> {{ pod.container_image_tags }}
+                <span class="font-bold">Tags:</span>
+                {{ pod.container_image_tags }}
               </p>
             </div>
             <div class="rounded">
               <p class="text-gray-700">
-                <strong>VNC Port: </strong> {{ pod.container_vnc_port }}
+                <span class="font-bold">VNC Port:</span>
+                {{ pod.container_vnc_port }}
               </p>
             </div>
             <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Available Ports: </strong>
+                <span class="font-bold">Available Ports:</span>
                 {{ pod.container_available_ports }}
               </p>
             </div>
-            <div class="rounded">
+            <div class="pb-2 rounded">
               <p class="text-gray-700">
-                <strong>Port Bindings: </strong>
+                <span class="font-bold">Port Bindings:</span>
                 {{ pod.container_port_bindings }}
               </p>
             </div>
@@ -91,14 +105,15 @@
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
 import Modal from '../components/Modal.vue'
+import { Button } from 'frappe-ui'
 
 export default {
   name: 'RunningPods',
   data() {
     return {
       runningPods: [],
-      modal_visible:false,
-      selected_pod:""
+      modal_visible: false,
+      selected_pod: '',
     }
   },
   mounted() {
@@ -169,9 +184,10 @@ export default {
     open_modal(pod) {
       this.selected_pod = pod
       this.modal_visible = true
-    },close_modal() {
-      this.modal_visible= false
-    }
+    },
+    close_modal() {
+      this.modal_visible = false
+    },
   },
   components: { SideNavbar, Modal },
 }
