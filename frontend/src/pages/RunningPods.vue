@@ -49,7 +49,7 @@
               </Button>
             </div>
           </div>
-          <hr class="border-t-2 border-black my-6 rounded" />
+          <hr class="border-t-2 border-black my-3 rounded" />
           <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
             <div class="pb-2 rounded">
               <p class="text-gray-700">
