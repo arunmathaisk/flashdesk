@@ -1,31 +1,31 @@
 <template>
   <div class="flex flex-col">
-    <div class="card" style="background-color: #ffffff; border: 2px solid #1E40AF; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 50%;">
-      <h1 style="color: #1E40AF; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 20px;">
+    <div class="card" style="background-color: #ffffff; border: 2px solid black; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 50%;">
+      <h1 style="color: black; font-size: large; font-weight: 600; text-align: center; margin-bottom: 20px;">
         Hi ! {{ userDetails.full_name }} 👋
       </h1>
-      <div v-if="loading" style="color: #666666; margin-bottom: 20px; text-align: center;">Loading...</div>
+      <div v-if="loading" style="color: black; margin-bottom: 20px; text-align: center;">Loading...</div>
       <div v-else>
         <div style="margin-bottom: 20px;">
-          <p style="color: #333333;">
+          <p style="color: black;">
             <strong>Full Name:</strong> {{ userDetails.full_name }}
           </p>
-          <p style="color: #333333;">
+          <p style="color: black;">
             <strong>Email:</strong> {{ userDetails.email }}
           </p>  
-          <p style="color: #333333;">
+          <p style="color: black;">
             <strong>Username:</strong> {{ userDetails.username }}
           </p>
         </div>
       </div>
     </div>
-    <div class="card" style="background-color: #ffffff; border: 2px solid #5cb85c; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 25%;">
-      <div v-if="loading" style="color: #666666; margin-bottom: 20px; text-align: center;">Loading...</div>
+    <div class="card" style="background-color: #ffffff; border: 2px solid black; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); padding: 20px; margin: 20px; flex-basis: 25%;">
+      <div v-if="loading" style="color:black; margin-bottom: 20px; text-align: center;">Loading...</div>
       <div v-else>
-        <h3 style="color: #28a745; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 20px;">
-          Last Login 📗
-        </h3>
-        <span style="color: #666666; font-size: 18px; display: block; text-align: center;">
+        <h4 style="color: black; font-size: large; font-weight: 600; text-align: center; margin-bottom: 20px;">
+          Last Login
+        </h4>
+        <span style="color: black; font-size:medium; display: block; text-align: center;">
           {{ new Date(last_login).toLocaleString() }}
         </span>
       </div>

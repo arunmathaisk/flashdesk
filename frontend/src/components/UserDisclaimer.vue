@@ -3,7 +3,7 @@
     class="card"
     style="
       background-color: #ffffff;
-      border: 2px solid #880808;
+      border: 2px solid black;
       border-radius: 10px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       padding: 10px;
@@ -12,7 +12,7 @@
   >
     <h2
       style="
-        color: #880808;
+        color:black;
         font-weight: 600;
         text-align: center;
         font-size: 20px;
@@ -23,7 +23,7 @@
     </h2>
     <p
       style="
-        color: #333333;
+        color: black;
         font-size: 14px;
         line-height: 1.6;
         text-align: justify;
@@ -39,7 +39,7 @@
     <p
       style="
         text-align: right;
-        color: #666666;
+        color: black;
         font-size: 14px;
         margin-top: 10px;
       "

@@ -9,33 +9,34 @@
       class="mx-auto block mb-4 w-32 h-32"
     />
     <br>
-    <hr class="border-t-2 border-orange-500  my-3" />
+    <hr class="border-t-2 border-black  my-3" />
     <br>
     <form class="flex flex-col" @submit.prevent="">
-      <Input
+      <TextInput
         v-model="email"
-        class="mb-4"
+        class="border-2 border-black rounded-md"
         label="Email"
-        placeholder="johndoe@mail.com"
+        placeholder="username"
         name="email"
         autocomplete="email"
         :type="email !== 'Administrator' ? 'email' : 'text'"
       />
-      <Input
+      <br>
+      <TextInput
         v-model="password"
         label="Password"
         type="password"
         placeholder="••••••••"
         name="password"
         autocomplete="current-password"
+        class="border-2 border-black rounded-md"
       />
-
       <ErrorMessage :message="errorMessage" class="mt-4" />
       <br />
       <br>
       <Button
         :variant="'solid'"
-        theme="blue"
+        theme="gray"
         size="sm"
         label="Button"
         :loading="false"
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import { Input, ErrorMessage } from 'frappe-ui'
+import { TextInput, ErrorMessage,Button } from 'frappe-ui'
 import LoginBox from '@/components/LoginBox.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useUserStore } from '@/stores/user.js'
@@ -60,8 +61,9 @@ export default {
   name: 'Login',
   components: {
     LoginBox,
-    Input,
+    TextInput,
     ErrorMessage,
+    Button,
   },
   data() {
     return {

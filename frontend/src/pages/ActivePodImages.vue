@@ -2,77 +2,85 @@
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
     <div id="test" class="flex-grow p-8 bg-white-200 overflow-auto">
-      <h1 class="text-3xl font-semibold mb-6 text-gray-800">
+      <h1 class="text-xl font-semibold mb-6 text-gray-800">
         Active Runnable Pod Images
       </h1>
-      <hr class="border-t-2 border-green-600 my-6" />
+      <hr class="border-t-2 border-black my-3" />
       <div class="grid grid-cols-1">
         <div
           v-for="(image, index) in activeImages"
           :key="index"
-          class="border-2 border-green-600 bg-white shadow-lg p-6 m-6 rounded"
+          class="border-2 border-black bg-white shadow-lg p-5 m-3 rounded"
         >
-          <div class="flex items-center justify-between mb-4">
-            <h3
-              class="text-xl font-bold text-gray-800"
+          <div class="flex items-center justify-between">
+            <h4
+              class="text-md font-medium text-gray-800"
               style="display: grid; grid-template-columns: 1fr auto auto"
             >
-              Image Tags : {{ image.tags }}
-            </h3>
+            <span class="font-bold">Image Tags : &nbsp; </span>{{ image.tags }}
+            </h4>
             <div class="flex gap-4">
-              <button
+              <Button
                 @click="savePod(image.image_id)"
-                class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+                size="md"
+                :variant="'solid'"
+                theme="gray"
               >
                 Save
-              </button>
-              <button
+              </Button>
+              <Button
                 @click="runPod(image.image_id)"
-                class="bg-green-600 text-white p-2 pl-4 pr-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+                size="md"
+                :variant="'solid'"
+                theme="gray"
               >
                 Run
-              </button>
-              <button
+              </Button>
+              <Button
                 @click="deleteImage(image.image_id)"
-                class="bg-red-600 text-white p-2 pl-4 pr-4 ml-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
+                size="md"
+                :variant="'solid'"
+                theme="gray"
               >
                 Remove
-              </button>
+              </Button>
             </div>
           </div>
-          <hr class="border-t-2 border-green-600 my-6" />
+          <hr class="border-t-2 border-black my-3" />
           <div class="mt-4">
-            <div class="pb-2 border-green-600">
-              <p class="text-gray-700">
-                <strong>ID:</strong> {{ image.image_id }}
-              </p>
-            </div>
-            <div class="pb-2 mt-2 border-green-600">
-              <p class="text-gray-700">
-                <strong>Created On:</strong>
-                {{ new Date(image.created).toDateString() }}
-              </p>
-            </div>
-            <div class="pb-2 border-green-600">
-              <p class="text-gray-700">
-                <strong>Short ID:</strong> {{ image.short_id }}
-              </p>
-            </div>
-            <div class="pb-2 mt-2 border-green-600">
-              <p class="text-gray-700">
-                <strong>Architecture:</strong> {{ image.architecture }}
-              </p>
-            </div>
-            <div class="pb-2 mt-2 border-green-600">
-              <p class="text-gray-700"><strong>OS:</strong> {{ image.os }}</p>
-            </div>
-            <div class="mt-2">
-              <p class="text-gray-700">
-                <strong>Size</strong> {{ image.size }}
-              </p>
-            </div>
-            <!-- Add more fields here if needed -->
-          </div>
+  <div class="pb-2 border-black">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">ID:</span> {{ image.image_id }}
+    </p>
+  </div>
+  <div class="pb-2 border-black">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">Created On:</span> {{ new Date(image.created).toDateString() }}
+    </p>
+  </div>
+  <div class="pb-2 border-black">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">Short ID:</span> {{ image.short_id }}
+    </p>
+  </div>
+  <div class="pb-2  border-black">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">Architecture:</span> {{ image.architecture }}
+    </p>
+  </div>
+  <div class="pb-2  border-black">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">OS:</span> {{ image.os }}
+    </p>
+  </div>
+  <div class="pb-2">
+    <p class="text-gray-700 text-sm">
+      <span class="font-bold">Size:</span> {{ image.size }}
+    </p>
+  </div>
+  <!-- Add more fields here if needed -->
+</div>
+
         </div>
       </div>
     </div>
@@ -81,6 +89,7 @@
 
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
+import { Button, ListView } from 'frappe-ui'
 export default {
   name: 'ActivePodImages',
   data() {
@@ -190,7 +199,8 @@ export default {
       } catch (error) {
         console.error('Error terminating pod image :', error)
       }
-    },async savePod(image_id){
+    },
+    async savePod(image_id) {
       try {
         const response = await fetch(
           '/api/method/flashdesk.api.pod_image.create_file_from_image',
@@ -204,17 +214,25 @@ export default {
         )
         if (response.ok) {
           const data = await response.json()
-          this.$toast(data.message.status,"Saving to tar file",data.message.message);
+          this.$toast(
+            data.message.status,
+            'Saving to tar file',
+            data.message.message
+          )
           this.fetchActiveImages()
         } else {
-          this.$toast(data.message.status,"Saving to tar file",data.message.message);
+          this.$toast(
+            data.message.status,
+            'Saving to tar file',
+            data.message.message
+          )
           console.error('Error saving pod image:', response.statusText)
         }
       } catch (error) {
         console.error('Error saving pod image :', error)
       }
-    }
+    },
   },
-  components: { SideNavbar },
+  components: { SideNavbar, Button },
 }
 </script>
