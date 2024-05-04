@@ -80,16 +80,16 @@ export default {
   data() {
     return {
       menuItems: [
-        { id: 1, title: 'Home', path: '/' },
-        { id: 2, title: 'Create Pod Image', path: '/CreatePodImages' },
-        { id: 3, title: 'Pod Images', path: '/PodImages' },
+        // { id: 1, title: 'Home', path: '/' },
+        // { id: 2, title: 'Create Pod Image', path: '/CreatePodImages' },
+        // { id: 3, title: 'Pod Images', path: '/PodImages' },
         { id: 4, title: 'Active Pod Images', path: '/ActivePodImages' },
         { id: 5, title: 'Running Pods ', path: '/RunningPods' },
         { id: 6, title: 'Docker Hub Search', path: '/DockerHubSearch' },
         { id: 7, title: 'Remote Queue Jobs', path: '/Events' },
-        { id: 8, title: 'Event Logs', path: '/Logs' },
-        { id: 9, title: 'PDFs', path: '/UploadPDFS' },
-        { id: 10, title: 'Saved Images', path: '/SavedImages' },
+        // { id: 8, title: 'Event Logs', path: '/Logs' },
+        // { id: 9, title: 'PDFs', path: '/UploadPDFS' },
+        // { id: 10, title: 'Saved Images', path: '/SavedImages' },
       ],
     }
   },
