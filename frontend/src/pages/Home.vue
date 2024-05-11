@@ -24,7 +24,7 @@ export default {
     SideNavbar,
     UserDetails,
     UserDisclaimer,
-    UsageGraph
-},
+    UsageGraph,
+  },
 }
 </script>

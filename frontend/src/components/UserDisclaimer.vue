@@ -12,7 +12,7 @@
   >
     <h2
       style="
-        color:black;
+        color: black;
         font-weight: 600;
         text-align: center;
         font-size: 20px;
@@ -37,12 +37,7 @@
       subject to strict consequences.
     </p>
     <p
-      style="
-        text-align: right;
-        color: black;
-        font-size: 14px;
-        margin-top: 10px;
-      "
+      style="text-align: right; color: black; font-size: 14px; margin-top: 10px"
     >
       - @FlashDesk
     </p>

@@ -10,13 +10,14 @@
           :key="index"
           class="border-2 border-blue-400 bg-white shadow-lg p-6 m-6 rounded-md"
         >
-        <h3
+          <h3
             class="text-xl font-bold text-gray-800 rounded-md"
             style="display: grid; grid-template-columns: 1fr auto"
           >
             {{ image.image_name }}
             <button
-             @click="extractFile(image.name)" class="bg-blue-400 text-white p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 " 
+              @click="extractFile(image.name)"
+              class="bg-blue-400 text-white p-2 pl-4 pr-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Extract
             </button>
@@ -52,7 +53,6 @@
   </div>
 </template>
 
-
 <script>
 import SideNavbar from '@/components/SideNavbar.vue'
 export default {
@@ -72,28 +72,36 @@ export default {
           '/api/method/flashdesk.api.pod_image.get_all_published_pod_images'
         )
         const data = await response.json()
-	console.log(data)
+        console.log(data)
         this.podImages = data.message
       } catch (error) {
         console.error('Error fetching images:', error)
       }
     },
-   async extractFile(pod_id){
-    try{
-      let options = {
-        method:"post",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body:JSON.stringify({pod_id:pod_id})
+    async extractFile(pod_id) {
+      try {
+        let options = {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ pod_id: pod_id }),
+        }
+        const response = await fetch(
+          '/api/method/flashdesk.api.pod_image.create_image_from_file',
+          options
+        )
+        const data = await response.json()
+        this.toast(
+          data.message.type,
+          'Pod Image Extraction',
+          data.message.message
+        )
+      } catch (error) {
+        console.error('Error extracting tar to image', error)
       }
-	    const response = await fetch('/api/method/flashdesk.api.pod_image.create_image_from_file',options)
-	    const data = await response.json()
-      this.toast(data.message.type,"Pod Image Extraction",data.message.message)
-    }catch(error){
-	    console.error('Error extracting tar to image',error)
-    }
-   },toast(icon, title, text) {
+    },
+    toast(icon, title, text) {
       this.$swal({
         toast: true,
         position: 'bottom-right',
@@ -104,7 +112,7 @@ export default {
         text: text,
         showCancelButton: 'true',
       })
-    }
+    },
   },
   components: { SideNavbar },
 }

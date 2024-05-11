@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen flex overflow-hidden">
     <SideNavbar />
-    <div class=" flex-col w-screen bg-white-200 overflow-auto">
-    <EventNotifications></EventNotifications>
+    <div class="flex-col w-screen bg-white-200 overflow-auto">
+      <EventNotifications></EventNotifications>
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: 'Events',
   components: {
     SideNavbar,
-    EventNotifications
+    EventNotifications,
   },
 }
 </script>

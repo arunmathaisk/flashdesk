@@ -3,20 +3,16 @@ import './index.css'
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
-import { createPinia } from 'pinia';
-import { Button, setConfig, frappeRequest, resourcesPlugin,} from 'frappe-ui'
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { createPinia } from 'pinia'
+import { Button, setConfig, frappeRequest, resourcesPlugin } from 'frappe-ui'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import { initSocket } from './socket'
 
-
 let app = createApp(App)
-const pinia = createPinia();
-
-
+const pinia = createPinia()
 
 setConfig('resourceFetcher', frappeRequest)
-
 
 let socket
 
@@ -24,22 +20,21 @@ socket = initSocket()
 
 app.config.globalProperties.$socket = socket
 
-
 app.use(router)
-app.use(pinia);
+app.use(pinia)
 app.use(resourcesPlugin)
 app.use(VueSweetalert2)
 app.component('Button', Button)
 app.mount('#app')
-app.config.globalProperties.$toast = function(icon, title, text) {
-        this.$swal({
-          toast: true,
-          position: 'bottom-right',
-          showConfirmButton: false,
-          timer: 3000,
-          icon: icon,
-          title: title,
-          text: text,
-          showCancelButton: 'true',
-        })
+app.config.globalProperties.$toast = function (icon, title, text) {
+  this.$swal({
+    toast: true,
+    position: 'bottom-right',
+    showConfirmButton: false,
+    timer: 3000,
+    icon: icon,
+    title: title,
+    text: text,
+    showCancelButton: 'true',
+  })
 }

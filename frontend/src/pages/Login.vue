@@ -8,9 +8,9 @@
       alt="App Logo"
       class="mx-auto block mb-4 w-32 h-32"
     />
-    <br>
-    <hr class="border-t-2 border-black  my-3" />
-    <br>
+    <br />
+    <hr class="border-t-2 border-black my-3" />
+    <br />
     <form class="flex flex-col" @submit.prevent="">
       <TextInput
         v-model="email"
@@ -21,7 +21,7 @@
         autocomplete="email"
         :type="email !== 'Administrator' ? 'email' : 'text'"
       />
-      <br>
+      <br />
       <TextInput
         v-model="password"
         label="Password"
@@ -33,7 +33,7 @@
       />
       <ErrorMessage :message="errorMessage" class="mt-4" />
       <br />
-      <br>
+      <br />
       <Button
         :variant="'solid'"
         theme="gray"
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { TextInput, ErrorMessage,Button } from 'frappe-ui'
+import { TextInput, ErrorMessage, Button } from 'frappe-ui'
 import LoginBox from '@/components/LoginBox.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useUserStore } from '@/stores/user.js'

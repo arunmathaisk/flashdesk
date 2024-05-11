@@ -1,11 +1,14 @@
 <template>
   <div class="w-full" @dragover="prevent" @drop="dropFile">
-    <label class="block font-medium leading-6  py-2" :class="required ? 'text-red-700': 'border-black-300'">{{
-      label
-    }}</label>
+    <label
+      class="block font-medium leading-6 py-2"
+      :class="required ? 'text-red-700' : 'border-black-300'"
+      >{{ label }}</label
+    >
     <div
       v-if="!uploaded_files"
-      class="flex justify-center w-full h-32 px-4 transition bg-white border-2  border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"  :class="required ? 'border-red-300': 'border-black-300' "
+      class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
+      :class="required ? 'border-red-300' : 'border-black-300'"
     >
       <span class="flex items-center space-x-2">
         <svg
@@ -29,7 +32,6 @@
         </span>
       </span>
       <input
-
         @change="dropFile"
         type="file"
         ref="file"
@@ -40,7 +42,8 @@
     </div>
     <div
       v-else
-      class="flex flex-col w-full h-32 px-4 justify-center transition bg-white border-2 border-black-300 border rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none max-wd-max" :class="required ? 'border-red-300': 'border-black-300' "
+      class="flex flex-col w-full h-32 px-4 justify-center transition bg-white border-2 border-black-300 border rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none max-wd-max"
+      :class="required ? 'border-red-300' : 'border-black-300'"
     >
       <div class="text-gray-600 font-medium flex items-center justify-between">
         {{ uploaded_files.name }}
@@ -71,7 +74,7 @@
       <div class="mb-5 h-2 rounded-full bg-gray-200 w-full">
         <div
           class="h-2 rounded-full bg-orange-500"
-          :style="{ width: upload_progress+ '%' }"
+          :style="{ width: upload_progress + '%' }"
         ></div>
       </div>
       <br />
@@ -95,8 +98,11 @@ export default {
   },
   methods: {
     async submitFile() {
-      for(let chunk_id = 0;chunk_id < this.total_chunks + 1;chunk_id++){
-        let chunk = this.uploaded_files.slice(chunk_id * this.chunksize,chunk_id * this.chunksize + this.chunksize)
+      for (let chunk_id = 0; chunk_id < this.total_chunks + 1; chunk_id++) {
+        let chunk = this.uploaded_files.slice(
+          chunk_id * this.chunksize,
+          chunk_id * this.chunksize + this.chunksize
+        )
         let file_parts = new FormData()
         file_parts.set('file', chunk)
         file_parts.set('current_chunk', chunk_id)
@@ -106,30 +112,39 @@ export default {
         file_parts.set('total_chunks', this.total_chunks)
 
         let fetch_options = {
-          method:"post",
-          body:file_parts
+          method: 'post',
+          body: file_parts,
         }
-        let response = await fetch(window.location.origin + this.file_upload_endpoint,fetch_options)
-        let reply =await response.json()
-        if(reply.exc_type == 'CSRFTokenError'){
+        let response = await fetch(
+          window.location.origin + this.file_upload_endpoint,
+          fetch_options
+        )
+        let reply = await response.json()
+        if (reply.exc_type == 'CSRFTokenError') {
           window.location.href = '/frontend/login'
         }
 
-        if(reply.message.type){
-          if(reply.message.success){
-            this.toast(reply.message.type,reply.message.title,reply.message.body);
-            this.$emit("file_path",reply.message.filepath)
-            break;
-          }else{
-            this.toast(reply.message.type,reply.message.title,reply.message.body);
+        if (reply.message.type) {
+          if (reply.message.success) {
+            this.toast(
+              reply.message.type,
+              reply.message.title,
+              reply.message.body
+            )
+            this.$emit('file_path', reply.message.filepath)
+            break
+          } else {
+            this.toast(
+              reply.message.type,
+              reply.message.title,
+              reply.message.body
+            )
             this.removeFileUI()
-            break;
+            break
           }
         }
 
-        
-
-        this.upload_progress = Math.round((chunk_id*100)/this.total_chunks)
+        this.upload_progress = Math.round((chunk_id * 100) / this.total_chunks)
       }
     },
     browserfile() {
@@ -150,22 +165,24 @@ export default {
       this.submitFile()
     },
     async removeFile() {
-      let delete_endpoint  = '/api/method/flashdesk.api.fileupload.files.file_delete';
+      let delete_endpoint =
+        '/api/method/flashdesk.api.fileupload.files.file_delete'
       let file_json = {
-        name : this.uploaded_files.name
+        name: this.uploaded_files.name,
       }
-      let response = await fetch(delete_endpoint,{
-        method:"post",
-        headers:{
-          "Content-Type":"application/json"
+      let response = await fetch(delete_endpoint, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        body:JSON.stringify(file_json)
+        body: JSON.stringify(file_json),
       })
       let reply = await response.json()
       this.uploaded_files = null
       this.no_of_chunks = null
       this.upload_progress = null
-    },async removeFileUI() {
+    },
+    async removeFileUI() {
       this.uploaded_files = null
       this.no_of_chunks = null
       this.upload_progress = null
