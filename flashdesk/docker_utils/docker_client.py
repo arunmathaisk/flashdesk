@@ -41,17 +41,19 @@ def check_if_docker_exists():
 
 
 def start_container_using_image_id(image_id):
-    container_metadata = frappe.get_doc({
-        "doctype": "Container Metadata",
-        "container_id": "",
-        "container_short_id": "",
-        "image_id": "",
-        "available_ports": "",
-        "vnc_port": 6969696969,  # Default value in case available_ports has no element
-        "port_bindings": "",
-        "container_image_tags": "",
-        "container_labels": "", 
-    })
+    container_metadata = frappe.get_doc(
+        {
+            "doctype": "Container Metadata",
+            "container_id": "",
+            "container_short_id": "",
+            "image_id": "",
+            "available_ports": "",
+            "vnc_port": 6969696969,  # Default value in case available_ports has no element
+            "port_bindings": "",
+            "container_image_tags": "",
+            "container_labels": "",
+        }
+    )
 
     exposed_ports = {"6901/tcp": {}, "6801/tcp": {}}
     num_exposed_ports = len(exposed_ports)
@@ -90,7 +92,19 @@ def get_terminated_containers():
     terminated_containers = frappe.get_all(
         "Container Metadata",
         filters={"terminated_timestamp": ["!=", None]},
-        fields=["name", "container_id", "container_short_id", "image_id", "container_image_tags", "available_ports", "vnc_port", "port_bindings", "timestamp", "container_labels", "terminated_timestamp"],
+        fields=[
+            "name",
+            "container_id",
+            "container_short_id",
+            "image_id",
+            "container_image_tags",
+            "available_ports",
+            "vnc_port",
+            "port_bindings",
+            "timestamp",
+            "container_labels",
+            "terminated_timestamp",
+        ],
     )
     return terminated_containers
 
@@ -136,10 +150,9 @@ def get_all_actively_running_docker_images():
         containers = client.containers.list()
         running_containers = []
         for container in containers:
-            fields = ["image_id","available_ports","vnc_port","port_bindings"]
-            filters = {"container_id":container.id}
-            result = frappe.db.get_value('Container Metadata',filters,fields,as_dict=True )
-            print(container)
+            fields = ["image_id", "available_ports", "vnc_port", "port_bindings"]
+            filters = {"container_id": container.id}
+            result = frappe.db.get_value("Container Metadata", filters, fields, as_dict=True)
             running_container = {
                 "container_id": container.id,
                 "container_image_tags": container.image.tags,
@@ -147,11 +160,16 @@ def get_all_actively_running_docker_images():
                 "container_labels": container.labels,
                 "container_shortid": container.short_id,
                 "container_status": container.status,
-                "container_image_id" : result.image_id,
-                "container_available_ports" : result.available_ports,
-                "container_vnc_port" : result.vnc_port,
-                "container_port_bindings" : result.port_bindings,
+                "container_image_id": (
+                    result.image_id
+                    if result and result.image_id
+                    else container.image.tags[0] if container.image.tags else "NA"
+                ),
+                "container_available_ports": result.available_ports if result else "NA",
+                "container_vnc_port": result.vnc_port if result else "NA",
+                "container_port_bindings": result.port_bindings if result else "NA",
             }
+
             running_containers.append(running_container)
         return running_containers
     except docker.errors.APIError as e:
@@ -212,12 +230,13 @@ def docker_events():
         # frappe.publish_realtime('docker_events', data={'event': event})
 
 
-def save_to_tar_file(image_id,file_path):
+def save_to_tar_file(image_id, file_path):
     saved_image = client.images.get(image_id)
-    f = open(file_path, 'wb')
+    f = open(file_path, "wb")
     for chunk in saved_image.save():
         f.write(chunk)
     f.close()
 
+
 def get_image_name_from_id(image_id):
-    return client.images.get(image_id).attrs['RepoTags'][0]
+    return client.images.get(image_id).attrs["RepoTags"][0]

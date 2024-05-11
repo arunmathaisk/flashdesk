@@ -56,74 +56,62 @@
   </div>
 </template>
 
-
-<script>
+<script setup>
+import { ref } from 'vue'
 import { TextInput, Button } from 'frappe-ui'
 import SideNavbar from '@/components/SideNavbar.vue'
 
-export default {
-  name: 'DockerHubSearch',
-  components: {
-    SideNavbar,
-    TextInput,
-    Button,
-  },
-  data() {
-    return {
-      searchInput: '',
-      dockerImages: [],
+const searchInput = ref('')
+const dockerImages = ref([])
+
+const fetchDockerHubImages = async () => {
+  try {
+    const response = await fetch(
+      `/api/method/flashdesk.api.pod_image.docker_hub_search?search_query=${searchInput.value}`
+    )
+    const data = await response.json()
+    dockerImages.value = data.message
+  } catch (error) {
+    console.error('Error fetching images:', error)
+  }
+}
+
+const docker_pull = async (imageName) => {
+  try {
+    const response = await fetch(
+      `/api/method/flashdesk.api.pod_image.docker_pull`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image_name: imageName }),
+      }
+    )
+    if (response.ok) {
+      Swal.fire({
+        toast: true,
+        position: 'bottom-right',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'success',
+        title: 'Success',
+        text: 'Image pull has started in the background. Check events for more information.',
+      })
+    } else {
+      const data = await response.json()
+      Swal.fire({
+        toast: true,
+        position: 'bottom-right',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'error',
+        title: 'Error',
+        text: data.messages,
+      })
     }
-  },
-  methods: {
-    async fetchDockerHubImages() {
-      try {
-        const response = await fetch(
-          `/api/method/flashdesk.api.pod_image.docker_hub_search?search_query=${this.searchInput}`
-        )
-        const data = await response.json()
-        this.dockerImages = data.message
-      } catch (error) {
-        console.error('Error fetching images:', error)
-      }
-    },
-    async docker_pull(imageName) {
-      try {
-        const response = await fetch(
-          `/api/method/flashdesk.api.pod_image.docker_pull`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ image_name: imageName }),
-          }
-        )
-        if (response.ok) {
-          this.$swal({
-            toast: true,
-            position: 'bottom-right',
-            showConfirmButton: false,
-            timer: 3000,
-            icon: 'success',
-            title: 'Success',
-            text: 'Image pull has started in the background. Check events for more information.',
-          })
-        } else {
-          const data = await response.json()
-          this.$swal({
-            toast: true,
-            position: 'bottom-right',
-            showConfirmButton: false,
-            timer: 3000,
-            icon: 'error',
-            title: 'Error',
-            text: data.messages,
-          })
-        }
-      } catch (error) {
-        console.error('Error pulling images:', error)
-      }
-    },
-  },
+  } catch (error) {
+    console.error('Error pulling images:', error)
+  }
 }
 </script>
