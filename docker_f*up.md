@@ -1,4 +1,4 @@
-To terminate all running Docker containers, you can use the following command:
+To terminate all running Docker containers, you can use the following command.
 
 ```bash
 docker stop $(docker ps -q)
